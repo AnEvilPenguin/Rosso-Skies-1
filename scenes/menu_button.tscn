@@ -6,7 +6,6 @@
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_uc71o")
-Button = NodePath("")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 2
