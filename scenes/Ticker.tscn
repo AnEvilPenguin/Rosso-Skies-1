@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dukjfvx144n0x"]
+
+[ext_resource type="Script" path="res://scripts/Ticker.cs" id="1_ttwhb"]
+
+[node name="Ticker" type="Label"]
+script = ExtResource("1_ttwhb")
+NewsItems = PackedStringArray("\"Is this really news?\" asks commenter", "5 Million Retweets in 1 hour already!", "Does Elon really like Cats? More at 9.", "Something went viral online")
+AllCapitals = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
