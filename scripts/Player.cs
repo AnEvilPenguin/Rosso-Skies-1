@@ -9,30 +9,28 @@ public partial class Player : CharacterBody2D
 	public float MaxSpeed = 80f;
 	[Export]
 	public float Acceleration = 1f;
+	[Export]
+	public int Maneuverability = 50;
 
 	private float _speed;
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
-
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 
-		if (direction == Vector2.Left || direction == Vector2.Right)
-		{
-			RotationDegrees += direction.X;
-		}
+		if (inputDirection == Vector2.Left || inputDirection == Vector2.Right)
+			Turn(inputDirection.X);
 
-        Vector2 destination = new Vector2(MathF.Cos(Rotation), MathF.Sin(Rotation));
+        Vector2 direction = new Vector2(MathF.Cos(Rotation), MathF.Sin(Rotation));
 
-        if (direction == Vector2.Up)
+        if (inputDirection == Vector2.Up)
             IncreaseSpeed();
-		else if (direction == Vector2.Down)
+		else if (inputDirection == Vector2.Down)
 			DecreaseSpeed();
 
-		Velocity = destination * _speed;
+		Velocity = direction * _speed;
 
 		MoveAndSlide();
 	}
@@ -53,7 +51,6 @@ public partial class Player : CharacterBody2D
 
 	/// <summary>
 	/// Decrease speed down to MinSpeed.
-	/// Allows for speed less than 
 	/// </summary>
 	private void DecreaseSpeed()
 	{
@@ -64,4 +61,17 @@ public partial class Player : CharacterBody2D
 			_speed = MinSpeed;
 		}
 	}
+
+	/// <summary>
+	/// Turns the player when above minimum speed.
+	/// </summary>
+	/// <param name="x">The direction to turn in.</param>
+	private void Turn(float x)
+	{
+		if (_speed < MinSpeed)
+			return;
+
+        var rotationFactor = Maneuverability / _speed;
+		RotationDegrees += x * rotationFactor;
+    }
 }
