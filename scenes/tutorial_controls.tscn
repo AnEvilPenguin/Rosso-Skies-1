@@ -1,12 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdrteh2devm43"]
+[gd_scene load_steps=16 format=3 uid="uid://cdrteh2devm43"]
 
 [ext_resource type="Script" path="res://scripts/Tutorial.cs" id="1_g0l4t"]
 [ext_resource type="PackedScene" uid="uid://cqkouy540t4bx" path="res://scenes/enter_to_continue.tscn" id="2_wgwpp"]
-[ext_resource type="Texture2D" uid="uid://h68j7ff1ecrv" path="res://assets/art/keyboard_arrow_up_outline.png" id="3_xeii0"]
-[ext_resource type="Texture2D" uid="uid://bnjnnwprtfmq8" path="res://assets/art/keyboard_arrow_right_outline.png" id="4_i6y0w"]
-[ext_resource type="Texture2D" uid="uid://cwfcp32sile5h" path="res://assets/art/keyboard_arrow_left_outline.png" id="5_vkykn"]
-[ext_resource type="Texture2D" uid="uid://gawoon36faff" path="res://assets/art/keyboard_arrow_down_outline.png" id="6_bje81"]
+[ext_resource type="Texture2D" uid="uid://h68j7ff1ecrv" path="res://assets/art/keys/keyboard_arrow_up_outline.png" id="3_xeii0"]
+[ext_resource type="Texture2D" uid="uid://bnjnnwprtfmq8" path="res://assets/art/keys/keyboard_arrow_right_outline.png" id="4_i6y0w"]
+[ext_resource type="Texture2D" uid="uid://cwfcp32sile5h" path="res://assets/art/keys/keyboard_arrow_left_outline.png" id="5_vkykn"]
+[ext_resource type="Texture2D" uid="uid://gawoon36faff" path="res://assets/art/keys/keyboard_arrow_down_outline.png" id="6_bje81"]
 [ext_resource type="Texture2D" uid="uid://ctr2eyp00qch3" path="res://assets/art/Basic_Plane.png" id="7_5gr7e"]
+[ext_resource type="Texture2D" uid="uid://blmq07bdnaimh" path="res://assets/art/keys/keyboard_space_outline.png" id="8_tbdlq"]
+[ext_resource type="Texture2D" uid="uid://bqb6tln0mx38x" path="res://assets/art/keys/keyboard_enter_outline.png" id="9_x5kju"]
+[ext_resource type="Texture2D" uid="uid://ca84w15d4i5n8" path="res://assets/art/keys/keyboard_page_up_outline.png" id="10_rda23"]
+[ext_resource type="Texture2D" uid="uid://crkgyhui36k51" path="res://assets/art/keys/keyboard_page_down_outline.png" id="11_0omb7"]
+[ext_resource type="Texture2D" uid="uid://bmkr7eg0uhy2p" path="res://assets/art/keys/keyboard_2_outline.png" id="12_3wnhj"]
+[ext_resource type="Texture2D" uid="uid://bgs2eolk1h2fd" path="res://assets/art/keys/keyboard_4_outline.png" id="13_j31pm"]
+[ext_resource type="Texture2D" uid="uid://7vyr2lhdxo3a" path="res://assets/art/keys/keyboard_6_outline.png" id="14_1erst"]
+[ext_resource type="Texture2D" uid="uid://crs1up2do7tat" path="res://assets/art/keys/keyboard_8_outline.png" id="15_isimj"]
 
 [node name="TutorialControls" type="Node"]
 script = ExtResource("1_g0l4t")
@@ -14,53 +22,119 @@ script = ExtResource("1_g0l4t")
 [node name="EnterToContinue" parent="." instance=ExtResource("2_wgwpp")]
 position = Vector2(1887, 1048)
 
-[node name="KeyboardArrowUpOutline" type="Sprite2D" parent="."]
+[node name="Sprites" type="Node" parent="."]
+
+[node name="KeyboardArrowUpOutline" type="Sprite2D" parent="Sprites"]
 position = Vector2(500, 240)
 texture = ExtResource("3_xeii0")
 
-[node name="KeyboardArrowRightOutline" type="Sprite2D" parent="."]
+[node name="KeyboardArrowRightOutline" type="Sprite2D" parent="Sprites"]
 position = Vector2(620, 360)
 texture = ExtResource("4_i6y0w")
 
-[node name="KeyboardArrowLeftOutline" type="Sprite2D" parent="."]
+[node name="KeyboardArrowLeftOutline" type="Sprite2D" parent="Sprites"]
 position = Vector2(380, 360)
 texture = ExtResource("5_vkykn")
 
-[node name="KeyboardArrowDownOutline" type="Sprite2D" parent="."]
+[node name="KeyboardArrowDownOutline" type="Sprite2D" parent="Sprites"]
 position = Vector2(500, 480)
 texture = ExtResource("6_bje81")
 
-[node name="BasicPlane" type="Sprite2D" parent="."]
+[node name="BasicPlane" type="Sprite2D" parent="Sprites"]
 position = Vector2(500, 360)
 scale = Vector2(3, 3)
 texture = ExtResource("7_5gr7e")
 
-[node name="UpLabel" type="Label" parent="."]
+[node name="KeyboardSpaceOutline" type="Sprite2D" parent="Sprites"]
+position = Vector2(231, 761)
+texture = ExtResource("8_tbdlq")
+
+[node name="KeyboardEnterOutline" type="Sprite2D" parent="Sprites"]
+position = Vector2(227, 815)
+texture = ExtResource("9_x5kju")
+
+[node name="KeyboardPageUpOutline" type="Sprite2D" parent="Sprites"]
+position = Vector2(754, 760)
+texture = ExtResource("10_rda23")
+
+[node name="KeyboardPageDownOutline" type="Sprite2D" parent="Sprites"]
+position = Vector2(822, 761)
+texture = ExtResource("11_0omb7")
+
+[node name="Keyboard2Outline" type="Sprite2D" parent="Sprites"]
+position = Vector2(1295, 583)
+texture = ExtResource("12_3wnhj")
+
+[node name="Keyboard4Outline" type="Sprite2D" parent="Sprites"]
+position = Vector2(1231, 524)
+texture = ExtResource("13_j31pm")
+
+[node name="Keyboard6Outline" type="Sprite2D" parent="Sprites"]
+position = Vector2(1355, 521)
+texture = ExtResource("14_1erst")
+
+[node name="Keyboard8Outline" type="Sprite2D" parent="Sprites"]
+position = Vector2(1297, 465)
+texture = ExtResource("15_isimj")
+
+[node name="Labels" type="Node" parent="."]
+
+[node name="UpLabel" type="Label" parent="Labels"]
 offset_left = 550.0
 offset_top = 230.0
 offset_right = 722.0
 offset_bottom = 253.0
 text = "Press Up to accelerate"
 
-[node name="LeftRightLabel" type="Label" parent="."]
+[node name="LeftRightLabel" type="Label" parent="Labels"]
 offset_left = 670.0
 offset_top = 350.0
 offset_right = 850.0
 offset_bottom = 373.0
 text = "Press Left/Right to turn"
 
-[node name="DownLabel" type="Label" parent="."]
+[node name="DownLabel" type="Label" parent="Labels"]
 offset_left = 550.0
 offset_top = 470.0
 offset_right = 747.0
 offset_bottom = 493.0
 text = "Press Down to decelerate"
 
-[node name="Label" type="Label" parent="."]
+[node name="Speed" type="Label" parent="Labels"]
 offset_left = 380.0
 offset_top = 580.0
 offset_right = 694.0
 offset_bottom = 603.0
 text = "The faster you move the slower you turn"
+
+[node name="ShootLabel" type="Label" parent="Labels"]
+offset_left = 277.0
+offset_top = 749.0
+offset_right = 564.0
+offset_bottom = 772.0
+text = "<TBD> Space will shoot main weapon"
+
+[node name="ShootLabel2" type="Label" parent="Labels"]
+offset_left = 278.0
+offset_top = 792.0
+offset_right = 584.0
+offset_bottom = 841.0
+text = "<TBD> Enter will fire secondary weapon 
+(if you have one)"
+
+[node name="AltitudeLabel" type="Label" parent="Labels"]
+offset_left = 883.0
+offset_top = 751.0
+offset_right = 1370.0
+offset_bottom = 774.0
+text = "<TBD> Page Up/Down will increase/decrease altitude by 1 layer"
+
+[node name="StuntLabel" type="Label" parent="Labels"]
+offset_left = 1405.0
+offset_top = 508.0
+offset_right = 1892.0
+offset_bottom = 531.0
+text = "<TBD> Number keys will perform various dodge stunts?
+8/2 will increase/decreate altitude layer (and may cause crash)"
 
 [connection signal="ButtonHoldComplete" from="EnterToContinue" to="." method="OnEnterHeld"]

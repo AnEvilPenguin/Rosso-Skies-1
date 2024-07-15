@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gawoon36faff"
-path="res://.godot/imported/keyboard_arrow_down_outline.png-135f314a5e346cf1a137f47f7269a73c.ctex"
+uid="uid://bnjnnwprtfmq8"
+path="res://.godot/imported/keyboard_arrow_right_outline.png-4a52ae9b769499ce19291b3d20c6dd2c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/keyboard_arrow_down_outline.png"
-dest_files=["res://.godot/imported/keyboard_arrow_down_outline.png-135f314a5e346cf1a137f47f7269a73c.ctex"]
+source_file="res://assets/art/keys/keyboard_arrow_right_outline.png"
+dest_files=["res://.godot/imported/keyboard_arrow_right_outline.png-4a52ae9b769499ce19291b3d20c6dd2c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwfcp32sile5h"
-path="res://.godot/imported/keyboard_arrow_left_outline.png-3bc6d4beffb11ee2ed816fd6a6fb9b6c.ctex"
+uid="uid://bqb6tln0mx38x"
+path="res://.godot/imported/keyboard_enter_outline.png-f5d8c2d02d73bb2a9e256d5826db79ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/keyboard_arrow_left_outline.png"
-dest_files=["res://.godot/imported/keyboard_arrow_left_outline.png-3bc6d4beffb11ee2ed816fd6a6fb9b6c.ctex"]
+source_file="res://assets/art/keys/keyboard_enter_outline.png"
+dest_files=["res://.godot/imported/keyboard_enter_outline.png-f5d8c2d02d73bb2a9e256d5826db79ee.ctex"]
 
 [params]
 

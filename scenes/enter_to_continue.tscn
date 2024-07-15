@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cqkouy540t4bx"]
 
 [ext_resource type="Script" path="res://scripts/EnterToContinue.cs" id="1_rfkbw"]
-[ext_resource type="Texture2D" uid="uid://bqb6tln0mx38x" path="res://assets/art/keyboard_enter_outline.png" id="2_i2n0h"]
+[ext_resource type="Texture2D" uid="uid://bqb6tln0mx38x" path="res://assets/art/keys/keyboard_enter_outline.png" id="2_i2n0h"]
 [ext_resource type="Texture2D" uid="uid://chuoohj5sxfi0" path="res://assets/art/press_keyboard_enter_continue-sheet.png" id="3_onp87"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8c3fg"]
