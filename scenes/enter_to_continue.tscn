@@ -1,0 +1,91 @@
+[gd_scene load_steps=13 format=3 uid="uid://cqkouy540t4bx"]
+
+[ext_resource type="Script" path="res://scripts/EnterToContinue.cs" id="1_rfkbw"]
+[ext_resource type="Texture2D" uid="uid://bqb6tln0mx38x" path="res://assets/art/keys/keyboard_enter_outline.png" id="2_i2n0h"]
+[ext_resource type="Texture2D" uid="uid://chuoohj5sxfi0" path="res://assets/art/press_keyboard_enter_continue-sheet.png" id="3_onp87"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c3fg"]
+atlas = ExtResource("3_onp87")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpef1"]
+atlas = ExtResource("3_onp87")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bq50a"]
+atlas = ExtResource("3_onp87")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_elpsk"]
+atlas = ExtResource("3_onp87")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bu1jw"]
+atlas = ExtResource("3_onp87")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_425v3"]
+atlas = ExtResource("3_onp87")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iohpw"]
+atlas = ExtResource("3_onp87")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jky55"]
+atlas = ExtResource("3_onp87")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3m2fj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i2n0h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c3fg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpef1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bq50a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_elpsk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bu1jw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_425v3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iohpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jky55")
+}],
+"loop": false,
+"name": &"hold",
+"speed": 5.0
+}]
+
+[node name="EnterToContinue" type="Node2D"]
+script = ExtResource("1_rfkbw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3m2fj")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -215.0
+offset_right = -27.0
+offset_bottom = 23.0
+text = "Hold enter to continue..."
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]

@@ -3,15 +3,16 @@ using System;
 
 public partial class MainMenu : Control
 {
-	private Button _playButton;
-	private Button _upgradeButton;
-	private Button _statsButton;
-	private Button _settingsButton;
-	private Button _quitButton;
+	private MenuButton _playButton;
+	private MenuButton _upgradeButton;
+	private MenuButton _statsButton;
+	private MenuButton _settingsButton;
+	private MenuButton _quitButton;
 
 	public override void _Ready()
 	{
-		_quitButton = GetNode<Button>("%QuitButton");
+		_playButton = GetNode<MenuButton>("%PlayButton");
+		_quitButton = GetNode<MenuButton>("%QuitButton");
 	}
 
 	public void OnQuit()
@@ -21,4 +22,9 @@ public partial class MainMenu : Control
 
         GetTree().Quit();
     }
+
+	public void OnPlay()
+	{
+		GetTree().ChangeSceneToFile("res://scenes/tutorial_controls.tscn");
+	}
 }
