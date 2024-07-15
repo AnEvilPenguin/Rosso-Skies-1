@@ -20,14 +20,14 @@ public partial class Player : CharacterBody2D
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 
-		if (inputDirection == Vector2.Left || inputDirection == Vector2.Right)
-			Turn(inputDirection.X);
+		if (Input.IsActionPressed("ui_left") || Input.IsActionPressed("ui_right"))
+            Turn(inputDirection.X);
 
         Vector2 direction = new Vector2(MathF.Cos(Rotation), MathF.Sin(Rotation));
 
-        if (inputDirection == Vector2.Up)
+        if (Input.IsActionPressed("ui_up"))
             IncreaseSpeed();
-		else if (inputDirection == Vector2.Down)
+		else if (Input.IsActionPressed("ui_down"))
 			DecreaseSpeed();
 
 		Velocity = direction * _speed;
