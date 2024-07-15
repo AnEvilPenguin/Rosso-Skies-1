@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c13i7nttddmjt"]
+
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_4k3us"]
+[ext_resource type="Texture2D" uid="uid://ctr2eyp00qch3" path="res://assets/art/Basic_Plane.png" id="1_5h5ss"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ryu7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5h5ss")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_otfje"]
+radius = 9.0
+height = 26.0
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(19, 19)
+motion_mode = 1
+script = ExtResource("1_4k3us")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_6ryu7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_otfje")
