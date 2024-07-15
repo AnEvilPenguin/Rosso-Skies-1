@@ -13,8 +13,14 @@ public partial class Player : CharacterBody2D
 	public int Maneuverability = 50;
 
 	private float _speed;
+	private Camera2D _camera;
 
-	public override void _PhysicsProcess(double delta)
+    public override void _Ready()
+    {
+        _camera = GetNode<Camera2D>("%Camera2D");
+    }
+
+    public override void _PhysicsProcess(double delta)
 	{
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
@@ -29,6 +35,8 @@ public partial class Player : CharacterBody2D
             IncreaseSpeed();
 		else if (Input.IsActionPressed("ui_down"))
 			DecreaseSpeed();
+
+		Zoom();
 
 		Velocity = direction * _speed;
 
@@ -73,5 +81,11 @@ public partial class Player : CharacterBody2D
 
         var rotationFactor = Maneuverability / _speed;
 		RotationDegrees += x * rotationFactor;
+    }
+
+	private void Zoom()
+	{
+        var diff = ((MaxSpeed - _speed) / MaxSpeed) + 1.5f;
+        _camera.Zoom = new Vector2(diff, diff);
     }
 }
