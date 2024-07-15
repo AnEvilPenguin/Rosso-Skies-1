@@ -56,4 +56,11 @@ offset_right = 747.0
 offset_bottom = 493.0
 text = "Press Down to decelerate"
 
+[node name="Label" type="Label" parent="."]
+offset_left = 380.0
+offset_top = 580.0
+offset_right = 694.0
+offset_bottom = 603.0
+text = "The faster you move the slower you turn"
+
 [connection signal="ButtonHoldComplete" from="EnterToContinue" to="." method="OnEnterHeld"]
