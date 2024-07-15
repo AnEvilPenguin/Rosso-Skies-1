@@ -1,0 +1,116 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4lnnltnsrveu"]
+
+[ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_li7o6"]
+[ext_resource type="PackedScene" uid="uid://dukjfvx144n0x" path="res://scenes/Ticker.tscn" id="1_q8l8g"]
+[ext_resource type="Texture2D" uid="uid://bgiendqcrx63k" path="res://assets/art/Logo.png" id="2_05n01"]
+[ext_resource type="PackedScene" uid="uid://bwdkirknbmlb4" path="res://scenes/menu_button.tscn" id="3_auo87"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_li7o6")
+
+[node name="NewsContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(720, 720)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 120.0
+offset_top = -360.0
+offset_right = 840.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewsContainer"]
+layout_mode = 2
+
+[node name="News" type="Label" parent="NewsContainer/VBoxContainer"]
+layout_mode = 2
+text = "News"
+
+[node name="NewsSeparator" type="HSeparator" parent="NewsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="NewsContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Content" type="Label" parent="NewsContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+text = "This will Contain some news.
+More at 11."
+
+[node name="TickerSeparator" type="HSeparator" parent="NewsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Ticker" parent="NewsContainer/VBoxContainer" instance=ExtResource("1_q8l8g")]
+layout_mode = 2
+clip_text = true
+MaxLength = 90
+
+[node name="MenuContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(720, 720)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -840.0
+offset_top = -360.0
+offset_right = -120.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MenuContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MenuContainer/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("2_05n01")
+
+[node name="PlayButton" parent="MenuContainer" instance=ExtResource("3_auo87")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_bottom = 20
+ButtonText = "Play"
+
+[node name="UpgradeButton" parent="MenuContainer" instance=ExtResource("3_auo87")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+ButtonText = "Upgrades"
+
+[node name="StatsButton" parent="MenuContainer" instance=ExtResource("3_auo87")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+ButtonText = "Stats"
+
+[node name="SettingsButton" parent="MenuContainer" instance=ExtResource("3_auo87")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+ButtonText = "Settings"
+
+[node name="QuitButton" parent="MenuContainer" instance=ExtResource("3_auo87")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+ButtonText = "Quit"
+
+[connection signal="OnClick" from="MenuContainer/QuitButton" to="." method="OnQuit"]
