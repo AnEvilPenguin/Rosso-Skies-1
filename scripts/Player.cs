@@ -3,10 +3,14 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	private float _speed;
+	[Export]
+	public float MinSpeed = 20f;
+	[Export]
+	public float MaxSpeed = 80f;
+	[Export]
+	public float Acceleration = 1f;
 
-	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	private float _speed;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -24,12 +28,40 @@ public partial class Player : CharacterBody2D
         Vector2 destination = new Vector2(MathF.Cos(Rotation), MathF.Sin(Rotation));
 
         if (direction == Vector2.Up)
-            _speed = _speed + 1;
+            IncreaseSpeed();
 		else if (direction == Vector2.Down)
-			_speed = _speed - 1;
+			DecreaseSpeed();
 
 		Velocity = destination * _speed;
 
 		MoveAndSlide();
+	}
+
+	/// <summary>
+	/// Increase speed up to MaxSpeed.
+	/// Allows for speed less than MinSpeed (e.g. TakeOff)
+	/// </summary>
+	private void IncreaseSpeed()
+	{
+		_speed += Acceleration;
+
+		if (_speed > MaxSpeed)
+		{
+			_speed = MaxSpeed;
+		}
+	}
+
+	/// <summary>
+	/// Decrease speed down to MinSpeed.
+	/// Allows for speed less than 
+	/// </summary>
+	private void DecreaseSpeed()
+	{
+		_speed -= Acceleration;
+
+		if (_speed < MinSpeed)
+		{
+			_speed = MinSpeed;
+		}
 	}
 }
