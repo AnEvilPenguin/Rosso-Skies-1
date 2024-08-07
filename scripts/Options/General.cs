@@ -5,7 +5,7 @@ namespace RossoSkies1.scripts.Options
 {
     internal class General : Options
     {
-        private bool _fullScreen = false;
+        private bool _fullScreen = true;
 
         public General()
         {

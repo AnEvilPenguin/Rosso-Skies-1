@@ -31,8 +31,6 @@ namespace RossoSkies1.scripts.Managers
 
             Instance = this;
             Load();
-
-            General.FullScreen = true;
         }
 
         public static void Load()
