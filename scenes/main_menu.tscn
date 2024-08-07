@@ -114,4 +114,5 @@ theme_override_constants/margin_bottom = 20
 ButtonText = "Quit"
 
 [connection signal="OnClick" from="MenuContainer/PlayButton" to="." method="OnPlay"]
+[connection signal="OnClick" from="MenuContainer/SettingsButton" to="." method="OnSettings"]
 [connection signal="OnClick" from="MenuContainer/QuitButton" to="." method="OnQuit"]
