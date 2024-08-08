@@ -47,4 +47,5 @@ text = "Back"
 layout_mode = 2
 text = "Apply"
 
+[connection signal="pressed" from="OptionsContainer/VBoxContainer/ButtonsContainer/BackButton" to="." method="OnBackClicked"]
 [connection signal="pressed" from="OptionsContainer/VBoxContainer/ButtonsContainer/ApplyButton" to="." method="OnApplyClicked"]
