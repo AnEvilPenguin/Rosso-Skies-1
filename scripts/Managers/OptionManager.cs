@@ -1,4 +1,4 @@
-﻿using RossoSkies1.scripts.Options;
+﻿using RossoSkies1.scripts.Settings;
 using RossoSkies1.scripts.Util;
 using System;
 using System.IO;
@@ -18,7 +18,7 @@ namespace RossoSkies1.scripts.Managers
         public static Controls Controls = new Controls();
         public static Audio Audio = new Audio();
 
-        private static List<Options.Options> optionsList;
+        private static List<Options> _optionsList;
 
         private const string _fileName = "settings.json";
 
@@ -27,11 +27,14 @@ namespace RossoSkies1.scripts.Managers
             if (Instance != null)
                 return;
 
-            optionsList = new List<Options.Options>() { General, Controls, Audio };
+            _optionsList = new List<Options>() { General, Controls, Audio };
 
             Instance = this;
             Load();
         }
+
+        public static List<Options> GetOptionsCategories() =>
+            _optionsList.ToList();
 
         public static void Load()
         {
@@ -51,20 +54,14 @@ namespace RossoSkies1.scripts.Managers
             Audio.OverrideSettings(settingOverrides);
         }
 
-        private static void PopulateSettingOverrides(JObject overrides, Object settings, string key)
-        {
-            if (overrides.ContainsKey(key))
-                JsonConvert.PopulateObject(overrides.GetValue(key).ToString(), settings);
-        }
-
         public static void Save()
         {
-            if (!optionsList.Exists(o => o.HasChanges()))
+            if (!_optionsList.Exists(o => o.HasChanges()))
                 return;
 
             var changedSettings = new JObject();
 
-            optionsList.Where(o => o.HasChanges())
+            _optionsList.Where(o => o.HasChanges())
                 .Aggregate(changedSettings, Reduce);
 
             var fullPath = Path.Combine(Constants.FolderPath, _fileName);
@@ -75,8 +72,14 @@ namespace RossoSkies1.scripts.Managers
                 changedSettings.WriteTo(writer);
             }
         }
+        private static void PopulateSettingOverrides(JObject overrides, Object settings, string key)
+        {
+            if (overrides.ContainsKey(key))
+                JsonConvert.PopulateObject(overrides.GetValue(key).ToString(), settings);
+        }
 
-        private static JObject Reduce(JObject accumulator, Options.Options current)
+
+        private static JObject Reduce(JObject accumulator, Options current)
         {
             var changes = current.GetChanges();
 
