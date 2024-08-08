@@ -8,6 +8,5 @@ public partial class OptionsMenu : Control
         OptionManager.Save();
 
     public void OnBackClicked() =>
-         GetTree()
-        .ChangeSceneToFile("res://scenes/main_menu.tscn");
+         GetTree().ChangeSceneToFile("res://scenes/main_menu.tscn");
 }
