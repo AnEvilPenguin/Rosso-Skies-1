@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 
-namespace RossoSkies1.scripts.Options
+namespace RossoSkies1.scripts.Settings
 {
     internal class Options
     {
@@ -40,6 +40,9 @@ namespace RossoSkies1.scripts.Options
 
             return jObject;
         }
+
+        public JObject GetSettings() =>
+            JObject.FromObject(this);
 
         private JObject Reduce(JObject accumulator, JProperty current)
         {

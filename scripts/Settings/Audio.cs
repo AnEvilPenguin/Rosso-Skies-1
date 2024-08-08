@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace RossoSkies1.scripts.Options
+namespace RossoSkies1.scripts.Settings
 {
     internal class Audio : Options
     {
