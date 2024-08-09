@@ -39,6 +39,8 @@ namespace RossoSkies1.scripts.Settings
                 .Aggregate(jObject, Reduce);
 
             return jObject;
+            // TODO figure out why controls don't recognise defaults.
+            // OR we could do something like get the class to figure out what is different.
         }
 
         public JObject GetSettings() =>
