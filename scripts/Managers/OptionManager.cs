@@ -56,13 +56,15 @@ namespace RossoSkies1.scripts.Managers
 
         public static void Save()
         {
-            if (!_optionsList.Exists(o => o.HasChanges()))
-                return;
+            // TODO deactivate apply button
+            // Also need to enable it on changed signal.
 
             var changedSettings = new JObject();
 
-            _optionsList.Where(o => o.HasChanges())
-                .Aggregate(changedSettings, Reduce);
+            _optionsList.Aggregate(changedSettings, Reduce);
+
+            if (changedSettings.Count == 0)
+                return;
 
             var fullPath = Path.Combine(Constants.FolderPath, _fileName);
 
@@ -72,6 +74,7 @@ namespace RossoSkies1.scripts.Managers
                 changedSettings.WriteTo(writer);
             }
         }
+
         private static void PopulateSettingOverrides(JObject overrides, Object settings, string key)
         {
             if (overrides.ContainsKey(key))
@@ -81,9 +84,12 @@ namespace RossoSkies1.scripts.Managers
 
         private static JObject Reduce(JObject accumulator, Options current)
         {
-            var changes = current.GetChanges();
+            if (current.HasChanges())
+            {
+                var changes = current.ToJObject();
 
-            accumulator.Add(current.Name, changes);
+                accumulator.Add(current.Name, changes);
+            }
 
             return accumulator;
         }

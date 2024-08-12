@@ -5,12 +5,14 @@ namespace RossoSkies1.scripts.Settings
 {
     internal class General : Options
     {
+        private static General _default = new General();
+
         private bool _fullScreen = true;
 
         public General()
         {
             Name = "General";
-            _defaultSettings = JObject.FromObject(this);
+            _defaultSettings = _default;
         }
 
         public bool FullScreen
@@ -27,7 +29,5 @@ namespace RossoSkies1.scripts.Settings
                 DisplayServer.WindowSetMode(mode);
             }
         }
-
-
     }
 }

@@ -87,9 +87,22 @@ namespace RossoSkies1.scripts.Settings
 
             control.KeyButton.BindingChanged += (InputEvent @event) =>
             {
-                controlGroup.KeyboardControl = @event;
+                InputBinding binding = new InputBinding();
 
-                control.SetKeyboard(@event);
+                if (@event is InputEventKey eventKey)
+                {
+                    binding.Type = InputType.Keyboard;
+                    binding.Keyboard = eventKey.Keycode;
+                }
+                else if (@event is InputEventMouseButton eventMouse)
+                {
+                    binding.Type = InputType.MouseButton;
+                    binding.MouseButton = eventMouse.ButtonIndex;
+                }
+
+                controlGroup.KeyboardControl = binding;
+
+                control.SetKeyboard(binding);
 
                 HasUnsavedChanges = true;
                 // Change this to a signal and emit
@@ -97,9 +110,23 @@ namespace RossoSkies1.scripts.Settings
 
             control.ControllerButton.BindingChanged += (InputEvent @event) =>
             {
-                controlGroup.ControllerControl = @event;
+                InputBinding binding = new InputBinding();
 
-                control.SetContoller(@event);
+                if (@event is InputEventJoypadMotion joyMotion)
+                {
+                    binding.Type = InputType.JoypadAxis;
+                    binding.JoypadAxis = joyMotion.Axis;
+                    binding.AxisValue = joyMotion.AxisValue;
+                }
+                else if (@event is InputEventJoypadButton joyButton)
+                {
+                    binding.Type = InputType.JoypadButton;
+                    binding.JoypadButton = joyButton.ButtonIndex;
+                }
+
+                controlGroup.ControllerControl = binding;
+
+                control.SetContoller(binding);
 
                 HasUnsavedChanges = true;
                 // Change this to a signal and emit

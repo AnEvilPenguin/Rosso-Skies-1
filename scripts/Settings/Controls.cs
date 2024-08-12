@@ -3,26 +3,41 @@ using Newtonsoft.Json.Linq;
 
 namespace RossoSkies1.scripts.Settings
 {
-    internal class ControlGroup
-    {
-        public string Name;
-        public InputEvent KeyboardControl;
-        public InputEvent ControllerControl;
-    }
-
     internal class Controls : Options
     {
+        private static Controls _default = new Controls();
+
         public ControlGroup Accelerate = new ControlGroup()
         {
             Name = "Accelerate",
-            KeyboardControl = new InputEventKey() { Keycode = Key.W },
-            ControllerControl = new InputEventJoypadMotion { Axis = JoyAxis.LeftY, AxisValue = 1.0f }
+            KeyboardControl = new InputBinding { Type = InputType.Keyboard, Keyboard = Key.W },
+            ControllerControl = new InputBinding { Type = InputType.JoypadAxis, JoypadAxis = JoyAxis.LeftY, AxisValue = 1.0f }
+        };
+
+        public ControlGroup Shoot = new ControlGroup()
+        {
+            Name = "Shoot Primary",
+            KeyboardControl = new InputBinding { Type = InputType.Keyboard, Keyboard = Key.Space },
+            ControllerControl = new InputBinding { Type = InputType.JoypadButton, JoypadButton = JoyButton.A }
         };
 
         public Controls()
         {
             Name = "Controls";
-            _defaultSettings = JObject.FromObject(this);
+            _defaultSettings = _default;
+        }
+
+        public override JObject ToJObject()
+        {
+            var output = new JObject();
+
+            if (!_default.Accelerate.Equals(Accelerate))
+                output.Add("Accelerate", Accelerate.GetDifferences(_default.Accelerate));
+
+            if (!_default.Shoot.Equals(Shoot))
+                output.Add("Shoot", Shoot.GetDifferences(_default.Shoot));
+
+            return output;
         }
     }
 }

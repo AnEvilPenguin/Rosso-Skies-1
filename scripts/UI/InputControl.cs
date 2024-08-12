@@ -1,4 +1,5 @@
 ﻿using Godot;
+using RossoSkies1.scripts.Settings;
 using RossoSkies1.scripts.UI;
 public partial class InputControl : HBoxContainer
 {
@@ -22,18 +23,18 @@ public partial class InputControl : HBoxContainer
         AddChild(KeyButton);
     }
 
-    public InputControl SetKeyboard(InputEvent @event)
+    public InputControl SetKeyboard(InputBinding binding)
     {
-        _keyboardInput = @event;
-        KeyButton.Text = @event.AsText();
+        _keyboardInput = binding.ToInputEvent();
+        KeyButton.Text = _keyboardInput.AsText();
 
         return this;
     }
 
-    public InputControl SetContoller(InputEvent @event)
+    public InputControl SetContoller(InputBinding binding)
     {
-        _controllerInput = @event;
-        ControllerButton.Text = @event.AsText();
+        _controllerInput = binding.ToInputEvent(); ;
+        ControllerButton.Text = _controllerInput.AsText();
 
         return this;
     }
