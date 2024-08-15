@@ -1,6 +1,4 @@
 ﻿using Godot;
-using RossoSkies1.scripts.UI;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -72,8 +70,7 @@ namespace RossoSkies1.scripts.Settings
             control.Slider.Toggled += (state) => {
                 property.SetValue(Settings, state);
 
-                HasUnsavedChanges = true;
-                // Change this to a signal and emit
+                Settings.HandleOptionsModified();
             };
             control.Slider.ButtonPressed = (bool)property.GetValue(Settings);
         }
@@ -116,8 +113,7 @@ namespace RossoSkies1.scripts.Settings
 
                 control.SetKeyboard(binding);
 
-                HasUnsavedChanges = true;
-                // Change this to a signal and emit
+                Settings.HandleOptionsModified();
             };
 
             control.ControllerButton.BindingChanged += (InputEvent @event) =>
@@ -140,8 +136,7 @@ namespace RossoSkies1.scripts.Settings
 
                 control.SetContoller(binding);
 
-                HasUnsavedChanges = true;
-                // Change this to a signal and emit
+                Settings.HandleOptionsModified();
             };
         }
     }

@@ -8,13 +8,16 @@ namespace RossoSkies1.scripts.Settings
 {
     internal class Options : IEquatable<Options>
     {
-        [NonSerializedAttribute]
-        protected Options _defaultSettings;
+        public event EventHandler<EventArgs> OptionsModified;
+        public delegate void OptionsModifiedEventHandler();
 
         [NonSerializedAttribute]
         public string Name;
 
         public int Columns { get; protected set; } = 2;
+
+        [NonSerializedAttribute]
+        protected Options _defaultSettings;
 
         public void OverrideSettings(JObject overrides)
         {
@@ -33,6 +36,17 @@ namespace RossoSkies1.scripts.Settings
 
         public bool Equals(Options other) =>
             JToken.DeepEquals(other.ToJObject(), ToJObject());
+
+        public void HandleOptionsModified()
+        {
+            var optionsModified = OptionsModified;
+
+            if (optionsModified == null)
+                return;
+
+            optionsModified(this, EventArgs.Empty);
+        }
+
 
         private JObject Reduce(JObject accumulator, JProperty current)
         {

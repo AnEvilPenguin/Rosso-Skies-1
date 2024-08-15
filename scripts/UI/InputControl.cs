@@ -40,8 +40,6 @@ public partial class InputControl
             BuildAxisText(binding) : 
             StripJoypadText(_controllerInput.AsText());
 
-       
-
         return this;
     }
 

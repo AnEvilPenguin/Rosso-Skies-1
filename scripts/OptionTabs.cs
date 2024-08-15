@@ -5,13 +5,16 @@ using System.Collections.Generic;
 
 public partial class OptionTabs : TabContainer
 {
-	private List<OptionTab> Tabs = new List<OptionTab>();
+	private List<OptionTab> _tabs = new List<OptionTab>();
 
 	public override void _Ready()
 	{
 		OptionManager.GetOptionsCategories()
 			.ForEach(GenerateNewTab);
 	}
+
+	internal List<OptionTab> GetTabs() =>
+		new List<OptionTab>(_tabs);
 
 	private void GenerateNewTab(Options category)
 	{
@@ -21,7 +24,7 @@ public partial class OptionTabs : TabContainer
 			Settings = category
 		};
 
-        Tabs.Add(tab);
+        _tabs.Add(tab);
         AddChild(tab);
     }
 }

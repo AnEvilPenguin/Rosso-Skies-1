@@ -30,6 +30,7 @@ theme_override_constants/margin_bottom = 100
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="OptionsContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("1_iqup8")
@@ -44,7 +45,9 @@ size_flags_vertical = 8
 text = "Back"
 
 [node name="ApplyButton" type="Button" parent="OptionsContainer/VBoxContainer/ButtonsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+disabled = true
 text = "Apply"
 
 [connection signal="pressed" from="OptionsContainer/VBoxContainer/ButtonsContainer/BackButton" to="." method="OnBackClicked"]
