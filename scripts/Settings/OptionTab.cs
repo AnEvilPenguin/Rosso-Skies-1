@@ -1,5 +1,6 @@
 ﻿using Godot;
 using RossoSkies1.scripts.UI;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -7,20 +8,30 @@ namespace RossoSkies1.scripts.Settings
 {
     internal partial class OptionTab : CenterContainer
     {
+        // FIXME Make child classes for each type. Should make this less mental.
+
         public bool HasUnsavedChanges { get; protected set; } = false;
 
         public Options Settings;
 
-        private VBoxContainer _box;
+        private GridContainer _box;
 
         public override void _Ready()
         {
             // May need to consider a scrollbox in future.
             // CenterContainer will squash it, so a CustomMinimum sizing seems to be a thing?
-            _box = new VBoxContainer();
+            _box = new GridContainer
+            {
+                Columns = Settings.Columns,
+                CustomMinimumSize = new Vector2(300, 300)
+            };
+
             AddChild(_box);
 
             var type = Settings.GetType();
+            
+            Settings.GetHeaders()
+                .ForEach(label => _box.AddChild(label));
 
             type.GetProperties()
                 .ToList()
@@ -80,7 +91,8 @@ namespace RossoSkies1.scripts.Settings
             var control = new InputControl();
 
             control.Name = controlGroup.Name;
-            _box.AddChild(control);
+
+            control.ConfigureGrid(_box);
 
             control.SetKeyboard(controlGroup.KeyboardControl)
                 .SetContoller(controlGroup.ControllerControl);

@@ -24,8 +24,11 @@ namespace RossoSkies1.scripts.UI
             _waitingForInput = false;
         }
 
-        public void OnClick() =>
+        public void OnClick()
+        {
+            AcceptEvent();
             _waitingForInput = true;
+        }
 
         public virtual void UpdateText(InputEvent @event)
         {

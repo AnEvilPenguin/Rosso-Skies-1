@@ -1,5 +1,6 @@
 ﻿using Godot;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace RossoSkies1.scripts.Settings
 {
@@ -25,6 +26,7 @@ namespace RossoSkies1.scripts.Settings
         {
             Name = "Controls";
             _defaultSettings = _default;
+            Columns = 3;
         }
 
         public override JObject ToJObject()
@@ -39,5 +41,17 @@ namespace RossoSkies1.scripts.Settings
 
             return output;
         }
+
+        public List<ControlGroup> GetControls() =>
+            new List<ControlGroup> {
+                Accelerate,
+                Shoot,
+            };
+
+        public override List<Label> GetHeaders() => new List<Label> {
+            new Label { Text = "Action", Name = "Action Header" },
+            new Label { Text = "Keyboard", Name = "Keyboard Header" },
+            new Label { Text = "Controller", Name = "Controller Header" }
+        };
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Godot;
 using RossoSkies1.scripts.Settings;
 using RossoSkies1.scripts.UI;
-public partial class InputControl : HBoxContainer
+
+public partial class InputControl
 {
+    public string Name;
     public Label Label = new Label();
     public KeyDetectionButton KeyButton = new KeyDetectionButton();
     public ControllerDetectionButton ControllerButton = new ControllerDetectionButton();
@@ -11,17 +13,16 @@ public partial class InputControl : HBoxContainer
     private InputEvent _keyboardInput;
     private InputEvent _controllerInput;
 
-    public override void _Ready()
+    public void ConfigureGrid(GridContainer container)
     {
-        base._Ready();
-
         Label.Text = Name;
 
-        AddChild(Label);
-        
-        AddChild(ControllerButton);
-        AddChild(KeyButton);
+        container.AddChild(Label);
+
+        container.AddChild(KeyButton);
+        container.AddChild(ControllerButton);
     }
+
 
     public InputControl SetKeyboard(InputBinding binding)
     {
@@ -33,9 +34,23 @@ public partial class InputControl : HBoxContainer
 
     public InputControl SetContoller(InputBinding binding)
     {
-        _controllerInput = binding.ToInputEvent(); ;
-        ControllerButton.Text = _controllerInput.AsText();
+        _controllerInput = binding.ToInputEvent();
+
+        ControllerButton.Text = StripJoypadText(_controllerInput.AsText());
 
         return this;
+    }
+
+    private string StripJoypadText(string input)
+    {
+        if (!input.Contains('('))
+            return input;
+
+        var startIndex = input.IndexOf('(') + 1;
+        var endIndex = input.IndexOf(')');
+
+        var length = endIndex - startIndex;
+
+        return input.Substring(startIndex, length);
     }
 }

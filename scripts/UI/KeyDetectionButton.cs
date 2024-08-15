@@ -10,11 +10,13 @@ namespace RossoSkies1.scripts.UI
             {
                 Text = eventKey.AsText();
                 EmitSignal(SignalName.BindingChanged, @event);
+                AcceptEvent();
             }  
             else if (@event is InputEventMouseButton eventMouseButton)
             {
                 Text = eventMouseButton.AsText();
                 EmitSignal(SignalName.BindingChanged, @event);
+                AcceptEvent();
             }       
         }
     }

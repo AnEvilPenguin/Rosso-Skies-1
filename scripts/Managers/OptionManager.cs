@@ -31,6 +31,8 @@ namespace RossoSkies1.scripts.Managers
 
             Instance = this;
             Load();
+
+            // TODO deal with InputMap
         }
 
         public static List<Options> GetOptionsCategories() =>
@@ -45,6 +47,7 @@ namespace RossoSkies1.scripts.Managers
             if (!File.Exists(fullPath))
             {
                 // Nothing to load, just use defaults
+                return;
             }
 
             var settingOverrides = JObject.Parse(File.ReadAllText(fullPath));
@@ -73,6 +76,8 @@ namespace RossoSkies1.scripts.Managers
             {
                 changedSettings.WriteTo(writer);
             }
+
+            // TODO deal with InputMap
         }
 
         private static void PopulateSettingOverrides(JObject overrides, Object settings, string key)

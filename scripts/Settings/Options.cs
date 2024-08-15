@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Linq;
+using System.Collections.Generic;
+using Godot;
 
 namespace RossoSkies1.scripts.Settings
 {
@@ -13,6 +14,8 @@ namespace RossoSkies1.scripts.Settings
         [NonSerializedAttribute]
         public string Name;
 
+        public int Columns { get; protected set; } = 2;
+
         public void OverrideSettings(JObject overrides)
         {
             if (overrides.ContainsKey(Name))
@@ -21,6 +24,9 @@ namespace RossoSkies1.scripts.Settings
 
         public bool HasChanges() =>
             !_defaultSettings.Equals(this);
+
+        public virtual List<Label> GetHeaders() =>
+            new List<Label>();
 
         public virtual JObject ToJObject() =>
             JObject.FromObject(this);
