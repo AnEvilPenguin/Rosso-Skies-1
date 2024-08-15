@@ -32,7 +32,7 @@ namespace RossoSkies1.scripts.Managers
             Instance = this;
             Load();
 
-            // TODO deal with InputMap
+            PopulateInputMap();
         }
 
         public static List<Options> GetOptionsCategories() =>
@@ -77,7 +77,7 @@ namespace RossoSkies1.scripts.Managers
                 changedSettings.WriteTo(writer);
             }
 
-            // TODO deal with InputMap
+            PopulateInputMap();
         }
 
         private static void PopulateSettingOverrides(JObject overrides, Object settings, string key)
@@ -86,6 +86,18 @@ namespace RossoSkies1.scripts.Managers
                 JsonConvert.PopulateObject(overrides.GetValue(key).ToString(), settings);
         }
 
+        private static void PopulateInputMap()
+        {
+            InputMap.LoadFromProjectSettings();
+
+            Controls.GetControls()
+                .ForEach((control) => {
+                    InputMap.AddAction(control.Name);
+
+                    InputMap.ActionAddEvent(control.Name, control.KeyboardControl.ToInputEvent());
+                    InputMap.ActionAddEvent(control.Name, control.ControllerControl.ToInputEvent());
+                });
+        }
 
         private static JObject Reduce(JObject accumulator, Options current)
         {
