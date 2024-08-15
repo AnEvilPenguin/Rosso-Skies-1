@@ -24,16 +24,16 @@ public partial class Player : CharacterBody2D
 	{
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		Vector2 inputDirection = Input.GetVector("Turn Left", "Turn Right", "Decelerate", "Accelerate");
 
-		if (Input.IsActionPressed("ui_left") || Input.IsActionPressed("ui_right"))
+		if (Input.IsActionPressed("Turn Left") || Input.IsActionPressed("Turn Right"))
             Turn(inputDirection.X);
 
         Vector2 direction = new Vector2(MathF.Cos(Rotation), MathF.Sin(Rotation));
 
-        if (Input.IsActionPressed("ui_up"))
+        if (Input.IsActionPressed("Accelerate"))
             IncreaseSpeed();
-		else if (Input.IsActionPressed("ui_down"))
+		else if (Input.IsActionPressed("Decelerate"))
 			DecreaseSpeed();
 
 		Zoom();

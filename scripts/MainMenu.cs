@@ -12,7 +12,8 @@ public partial class MainMenu : Control
 	public override void _Ready()
 	{
 		_playButton = GetNode<MenuButton>("%PlayButton");
-		_quitButton = GetNode<MenuButton>("%QuitButton");
+        _settingsButton = GetNode<MenuButton>("%SettingsButton");
+        _quitButton = GetNode<MenuButton>("%QuitButton");
 	}
 
 	public void OnQuit()
@@ -21,6 +22,11 @@ public partial class MainMenu : Control
         //GetTree().Root.PropagateNotification((int)NotificationWMCloseRequest);
 
         GetTree().Quit();
+    }
+
+	public void OnSettings()
+	{
+        GetTree().ChangeSceneToFile("res://scenes/options_menu.tscn");
     }
 
 	public void OnPlay()

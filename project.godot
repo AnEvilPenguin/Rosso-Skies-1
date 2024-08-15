@@ -15,11 +15,18 @@ run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+OptionManager="*res://scripts/Managers/OptionManager.cs"
+
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
+window/size/resizable=false
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 
