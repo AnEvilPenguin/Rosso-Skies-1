@@ -36,7 +36,11 @@ public partial class InputControl
     {
         _controllerInput = binding.ToInputEvent();
 
-        ControllerButton.Text = StripJoypadText(_controllerInput.AsText());
+        ControllerButton.Text = binding.Type == InputType.JoypadAxis ?
+            BuildAxisText(binding) : 
+            StripJoypadText(_controllerInput.AsText());
+
+       
 
         return this;
     }
@@ -52,5 +56,17 @@ public partial class InputControl
         var length = endIndex - startIndex;
 
         return input.Substring(startIndex, length);
+    }
+
+    private string BuildAxisText(InputBinding binding)
+    {
+        return binding.JoypadAxis switch
+        {
+            JoyAxis.LeftX => $"Left Stick: {(binding.AxisValue > 0 ? "Right" : "Left")}",
+            JoyAxis.LeftY => $"Left Stick: {(binding.AxisValue > 0 ? "Up" : "Down")}",
+            JoyAxis.RightX => $"Right Stick: {(binding.AxisValue > 0 ? "Right" : "Left")}",
+            JoyAxis.RightY => $"Right Stick: {(binding.AxisValue > 0 ? "Up" : "Down")}",
+            _ => StripJoypadText(binding.ToInputEvent().AsText()),
+        };
     }
 }
