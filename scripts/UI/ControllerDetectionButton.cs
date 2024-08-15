@@ -14,7 +14,7 @@ namespace RossoSkies1.scripts.UI
             }
             else if (@event is InputEventJoypadMotion joypadMotion)
             {
-                Text = joypadMotion.AsText(); // FIXME this probably needs work
+                Text = joypadMotion.AsText();
                 EmitSignal(SignalName.BindingChanged, @event);
                 AcceptEvent();
             }
