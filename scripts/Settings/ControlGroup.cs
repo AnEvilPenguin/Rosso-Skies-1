@@ -35,7 +35,7 @@ namespace RossoSkies1.scripts.Settings
 
                 case InputType.JoypadAxis:
                     output.Add("JoypadAxis", (int)JoypadAxis);
-                    output.Add("AxisValue", (int)AxisValue);
+                    output.Add("AxisValue", AxisValue > 0 ? 1 : -1);
                     break;
 
                 case InputType.MouseButton:
@@ -54,7 +54,7 @@ namespace RossoSkies1.scripts.Settings
             Type switch
             {
                 InputType.MouseButton => new InputEventMouseButton { ButtonIndex = MouseButton },
-                InputType.JoypadAxis => new InputEventJoypadMotion { Axis = JoypadAxis, AxisValue = AxisValue },
+                InputType.JoypadAxis => new InputEventJoypadMotion { Axis = JoypadAxis, AxisValue = AxisValue > 0 ? 1 : -1 },
                 InputType.JoypadButton => new InputEventJoypadButton { ButtonIndex = JoypadButton },
                 _ => new InputEventKey { Keycode = Keyboard }
             };
