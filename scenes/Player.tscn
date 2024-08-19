@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c13i7nttddmjt"]
+[gd_scene load_steps=6 format=3 uid="uid://c13i7nttddmjt"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_4k3us"]
 [ext_resource type="Texture2D" uid="uid://ctr2eyp00qch3" path="res://assets/art/Basic_Plane.png" id="1_5h5ss"]
+[ext_resource type="PackedScene" uid="uid://crutsll5t0u2c" path="res://scenes/basic_gun.tscn" id="3_vb3vr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6ryu7"]
 animations = [{
@@ -35,3 +36,11 @@ shape = SubResource("CapsuleShape2D_otfje")
 unique_name_in_owner = true
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[node name="BasicGun" parent="." instance=ExtResource("3_vb3vr")]
+position = Vector2(11, 7)
+scale = Vector2(0.5, 0.5)
+
+[node name="BasicGun2" parent="." instance=ExtResource("3_vb3vr")]
+position = Vector2(11, -7)
+scale = Vector2(0.5, 0.5)

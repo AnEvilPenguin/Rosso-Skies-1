@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://crutsll5t0u2c"]
+
+[ext_resource type="Texture2D" uid="uid://l7r73go2dyqg" path="res://assets/art/Basic_Gun.png" id="1_5hsvg"]
+[ext_resource type="Script" path="res://scripts/BasicGun.cs" id="1_ek78v"]
+[ext_resource type="PackedScene" uid="uid://b7pqtwgkl3nwn" path="res://scenes/basic_bullet.tscn" id="2_4jsdt"]
+
+[node name="BasicGun" type="Node2D"]
+script = ExtResource("1_ek78v")
+Bullet = ExtResource("2_4jsdt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_5hsvg")
