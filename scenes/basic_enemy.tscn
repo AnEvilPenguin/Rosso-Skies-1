@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2q484o7ieh7t"]
+
+[ext_resource type="Texture2D" uid="uid://b732e7r0cq0wg" path="res://icon.svg" id="1_duvgj"]
+[ext_resource type="Script" path="res://scripts/BasicEnemy.cs" id="1_glnfs"]
+[ext_resource type="PackedScene" uid="uid://b7e1hpayntdtq" path="res://scenes/components/health.tscn" id="2_vdq5x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b12wk"]
+
+[node name="BasicEnemy" type="Node2D"]
+script = ExtResource("1_glnfs")
+
+[node name="Health" parent="." instance=ExtResource("2_vdq5x")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_duvgj")
+
+[node name="EnemyArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea"]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_b12wk")

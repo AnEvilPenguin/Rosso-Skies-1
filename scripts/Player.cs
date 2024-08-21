@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class Player : CharacterBody2D
 {
@@ -15,9 +17,15 @@ public partial class Player : CharacterBody2D
 	private float _speed;
 	private Camera2D _camera;
 
+	private List<BasicGun> _guns;
+
     public override void _Ready()
     {
         _camera = GetNode<Camera2D>("%Camera2D");
+
+		_guns = GetChildren()
+			.OfType<BasicGun>()
+			.ToList();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -35,6 +43,9 @@ public partial class Player : CharacterBody2D
             IncreaseSpeed();
 		else if (Input.IsActionPressed("Decelerate"))
 			DecreaseSpeed();
+
+		if (Input.IsActionJustPressed("Shoot Primary"))
+			_guns.ForEach(gun => gun.Shoot(direction, Rotation, _speed));
 
 		Zoom();
 
