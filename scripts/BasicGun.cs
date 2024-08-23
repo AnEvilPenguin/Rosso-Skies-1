@@ -9,6 +9,8 @@ public partial class BasicGun : Node2D
 	public float RateOfFire = 10f;
 	[Export]
 	public float MuzzleVelocity = 400;
+	[Export]
+	public float Range = 400;
 
 	private double _timer;
 
@@ -28,6 +30,7 @@ public partial class BasicGun : Node2D
 		bullet.Direction = direction;
 		bullet.Position = GlobalPosition;
 		bullet.Speed = speed + MuzzleVelocity;
+		bullet.Lifetime = Range / MuzzleVelocity;
 		bullet.Rotation = rotation;
         GetNode("/root").AddChild(bullet);
 
