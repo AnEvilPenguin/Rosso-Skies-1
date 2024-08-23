@@ -4,7 +4,7 @@ public partial class SpawnRadius : Path2D
 {
 	// TODO we probably just want a dedicated enemy spawn manager and this should be a part of that.
 	[Export]
-	public int TimerSeconds = 5;
+	public int TimerSeconds = 1;
 	[Export]
 	public float Radius = 500;
 	[Export]
