@@ -6,7 +6,9 @@ public partial class BasicGun : Node2D
 	public PackedScene Bullet;
 
 	[Export]
-	public double RateOfFire = 10d;
+	public float RateOfFire = 10f;
+	[Export]
+	public float MuzzleVelocity = 400;
 
 	private double _timer;
 
@@ -25,7 +27,7 @@ public partial class BasicGun : Node2D
 
 		bullet.Direction = direction;
 		bullet.Position = GlobalPosition;
-		bullet.Speed += speed;
+		bullet.Speed = speed + MuzzleVelocity;
 		bullet.Rotation = rotation;
         GetNode("/root").AddChild(bullet);
 
