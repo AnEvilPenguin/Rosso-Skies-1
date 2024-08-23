@@ -6,7 +6,7 @@ public partial class Level0 : Node2D
 	[Export]
 	public PackedScene Enemy;
     [Export]
-    public int TimerSeconds = 10;
+    public float TimerSeconds = 7.5f;
 
     private PathFollow2D _spawnPoint;
     private double _timer;
