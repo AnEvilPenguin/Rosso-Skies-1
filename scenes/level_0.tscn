@@ -1,8 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://btl4n0mcixyj6"]
+[gd_scene load_steps=9 format=3 uid="uid://btl4n0mcixyj6"]
 
+[ext_resource type="Script" path="res://scripts/SpawnRadius.cs" id="1_bhawx"]
+[ext_resource type="Script" path="res://scripts/Level0.cs" id="1_echsl"]
 [ext_resource type="PackedScene" uid="uid://c13i7nttddmjt" path="res://scenes/Player.tscn" id="1_f0fww"]
 [ext_resource type="Texture2D" uid="uid://duen0wap1xcat" path="res://assets/art/Terrain.png" id="2_5ra38"]
 [ext_resource type="PackedScene" uid="uid://d2q484o7ieh7t" path="res://scenes/basic_enemy.tscn" id="3_p2brv"]
+
+[sub_resource type="Curve2D" id="Curve2D_6m13n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ekthx"]
 texture = ExtResource("2_5ra38")
@@ -26,11 +30,20 @@ tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_ekthx")
 
 [node name="Level0" type="Node2D"]
+script = ExtResource("1_echsl")
+Enemy = ExtResource("3_p2brv")
 
-[node name="Player" parent="." instance=ExtResource("1_f0fww")]
+[node name="EnemySpawnRadius" type="Path2D" parent="."]
+curve = SubResource("Curve2D_6m13n")
+script = ExtResource("1_bhawx")
+
+[node name="Player" parent="EnemySpawnRadius" instance=ExtResource("1_f0fww")]
 z_index = 1
 collision_layer = 3
 collision_mask = 3
+
+[node name="EnemySpawnLocation" type="PathFollow2D" parent="EnemySpawnRadius"]
+unique_name_in_owner = true
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(1, 1)
