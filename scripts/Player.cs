@@ -44,7 +44,7 @@ public partial class Player : CharacterBody2D
 		else if (Input.IsActionPressed("Decelerate"))
 			DecreaseSpeed();
 
-		if (Input.IsActionJustPressed("Shoot Primary"))
+		if (Input.IsActionPressed("Shoot Primary"))
 			_guns.ForEach(gun => gun.Shoot(direction, Rotation, _speed));
 
 		Zoom();
