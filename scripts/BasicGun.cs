@@ -1,9 +1,10 @@
 using Godot;
+using RossoSkies1.scripts.Components;
 
 public partial class BasicGun : Node2D
 {
-	[Export]
-	public PackedScene Bullet;
+    [Export]
+	public Texture2D BulletTexture;
 
 	[Export]
 	public float RateOfFire = 10f;
@@ -25,13 +26,22 @@ public partial class BasicGun : Node2D
 		if (_timer > 0)
 			return;
 
-		var bullet = Bullet.Instantiate<BasicBullet>();
 
-		bullet.Direction = direction;
-		bullet.Position = GlobalPosition;
-		bullet.Speed = speed + MuzzleVelocity;
-		bullet.Lifetime = Range / MuzzleVelocity;
-		bullet.Rotation = rotation;
+		// TODO consider the builder pattern
+		// Should help with upgrades?
+		var bullet = new Bullet()
+		{
+			Position = GetNode<Marker2D>("%Marker2D").GlobalPosition,
+			Rotation = rotation,
+		};
+
+		bullet.SetDirection(direction) // Consider having bullets converge slightly?
+		    .SetSpeed(speed + MuzzleVelocity)
+			.SetLifetime(Range / MuzzleVelocity)
+			.SetTexture(BulletTexture)
+			.SetSpriteRotationDegrees(90)
+			.SetSpriteScale(new Vector2(0.05f, 0.05f));
+
         GetNode("/root").AddChild(bullet);
 
 		ResetTimer();
