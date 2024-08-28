@@ -20,10 +20,12 @@ public partial class BasicEnemy : Node2D
 
     public override void _Process(double delta)
     {
-        // TODO bring rotation into the mix?
         var direction = GlobalPosition.DirectionTo(_player.GlobalPosition);
 
-        
+        // TODO figure out how to set enemy agility
+        var rotation = direction.Angle();
+
+        Rotation = rotation;
         
         Position += direction * (Speed * (float)delta);
     }
