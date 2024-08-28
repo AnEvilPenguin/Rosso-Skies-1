@@ -25,13 +25,13 @@ public partial class BasicEnemy : Node2D
         // TODO figure out how to set enemy agility
         var rotation = direction.Angle();
 
+        // TODO shoot when within a certain angle/distance of player
+
         Rotation = rotation;
         
         Position += direction * (Speed * (float)delta);
     }
 
-    private void OnDestroyed()
-	{
-        QueueFree();
-    }
+    private void OnDestroyed() =>
+	    QueueFree();
 }
