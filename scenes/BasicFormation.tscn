@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://csfalxsl15ngk"]
+[gd_scene load_steps=2 format=3 uid="uid://csfalxsl15ngk"]
 
 [ext_resource type="Script" path="res://scripts/Enemies/BasicFormation.cs" id="1_bwovo"]
-[ext_resource type="PackedScene" uid="uid://d2q484o7ieh7t" path="res://scenes/basic_enemy.tscn" id="2_hncp2"]
 
 [node name="BasicFormation" type="Node2D"]
 script = ExtResource("1_bwovo")
-Leader = ExtResource("2_hncp2")

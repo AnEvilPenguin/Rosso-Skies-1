@@ -36,7 +36,8 @@ public partial class Level0 : Node2D
 
     private void SpawnMob()
     {
-        BasicEnemy mob = Enemy.Instantiate<BasicEnemy>();
+        // FIXME make an interface for this
+        PhysicsEnemy mob = Enemy.Instantiate<PhysicsEnemy>();
 
         _spawnPoint.ProgressRatio = GD.Randf();
 

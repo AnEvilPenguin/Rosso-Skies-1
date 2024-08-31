@@ -37,7 +37,7 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionPressed("Turn Left") || Input.IsActionPressed("Turn Right"))
             Turn(inputDirection.X);
 
-        Vector2 direction = new Vector2(MathF.Cos(Rotation), MathF.Sin(Rotation));
+        var direction = new Vector2(MathF.Cos(Rotation), MathF.Sin(Rotation));
 
         if (Input.IsActionPressed("Accelerate"))
             IncreaseSpeed();
