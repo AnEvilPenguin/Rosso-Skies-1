@@ -42,3 +42,27 @@ position = Vector2(12, 0)
 unique_name_in_owner = true
 position = Vector2(14, 0)
 target_position = Vector2(75, 0)
+
+[node name="EnemyDetection" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="RayCast2D" type="RayCast2D" parent="EnemyDetection"]
+position = Vector2(7, -13)
+target_position = Vector2(30, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast2D2" type="RayCast2D" parent="EnemyDetection"]
+position = Vector2(7, 14)
+target_position = Vector2(30, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast2D3" type="RayCast2D" parent="EnemyDetection"]
+position = Vector2(13, 0)
+target_position = Vector2(30, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
