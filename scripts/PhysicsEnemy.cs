@@ -10,13 +10,29 @@ public partial class PhysicsEnemy : CharacterBody2D
 
     private Player _player;
 
+    private RayCast2D _playerDetection;
+    private BasicGun _gun;
+
     public override void _Ready()
     {
         Health = GetNode<Health>("Health");
+        _playerDetection = GetNode<RayCast2D>("%PlayerDetectionRayCast");
+        _gun = GetNode<BasicGun>("%BasicGun");
+        _gun.Layer = new int[] { 4 };
+        _gun.Mask = new int[] { 1 };
 
         _player = GetParent().GetNode<Player>("%Player");
 
         Health.Destroyed += OnDestroyed;
+    }
+
+    public override void _Process(double delta)
+    {
+        if (_playerDetection.GetCollider() is Player)
+        {
+            // FIXME bullet layer
+            _gun.Shoot(GlobalPosition.DirectionTo(_player.GlobalPosition), Rotation, Speed);
+        }
     }
 
     public override void _PhysicsProcess(double delta)

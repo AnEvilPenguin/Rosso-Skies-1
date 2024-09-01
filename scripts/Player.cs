@@ -99,4 +99,9 @@ public partial class Player : CharacterBody2D
         var diff = ((MaxSpeed - _speed) / MaxSpeed) + 1.5f;
         _camera.Zoom = new Vector2(diff, diff);
     }
+
+	private void OnDestroyed()
+	{
+		GD.Print("Game Over");
+	}
 }

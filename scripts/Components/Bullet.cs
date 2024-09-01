@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace RossoSkies1.scripts.Components
@@ -25,16 +26,15 @@ namespace RossoSkies1.scripts.Components
 
             AddChild(_collisionShape2D);
 
-            // Layer 3
-            CollisionLayer = 4;
-
-            // Layer 2 + 3
-            CollisionMask = 6;
-
             Monitoring = true;
             AreaEntered += OnAreaEntered;
 
             _timer = _lifetime;
+
+            // Put behind other objects, but in front of background.
+            // We probably need to revisit this in future.
+            ZIndex = 1;
+            ZAsRelative = false;
 
             base._Ready();
         }
@@ -85,6 +85,18 @@ namespace RossoSkies1.scripts.Components
             return this;
         }
 
+        public Bullet SetCollisionLayers(IEnumerable<int> layers)
+        {
+            CollisionLayer = CollisionAggregation(layers);
+            return this;
+        }
+
+        public Bullet SetCollisionMasks(IEnumerable<int> mask)
+        {
+            CollisionMask = CollisionAggregation(mask);
+            return this;
+        }
+
         private void OnAreaEntered(Area2D area)
         {
             UInt64 targetAreaId = area.GetInstanceId();
@@ -106,5 +118,8 @@ namespace RossoSkies1.scripts.Components
             if (_damaged.Count > Damage.Piercing)
                 QueueFree();
         }
+
+        private uint CollisionAggregation(IEnumerable<int> layers) =>
+            (uint)layers.Aggregate(0, (acc, l) => acc + (int)Math.Pow(2, (double)(l - 1)));
     }
 }

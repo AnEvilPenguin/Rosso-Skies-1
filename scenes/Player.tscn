@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://c13i7nttddmjt"]
+[gd_scene load_steps=7 format=3 uid="uid://c13i7nttddmjt"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_4k3us"]
 [ext_resource type="Texture2D" uid="uid://ctr2eyp00qch3" path="res://assets/art/Basic_Plane.png" id="1_5h5ss"]
 [ext_resource type="PackedScene" uid="uid://crutsll5t0u2c" path="res://scenes/basic_gun.tscn" id="3_vb3vr"]
+[ext_resource type="PackedScene" uid="uid://b7e1hpayntdtq" path="res://scenes/components/health.tscn" id="4_5hvvy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_otfje"]
+radius = 9.0
+height = 26.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6ryu7"]
 animations = [{
@@ -15,22 +20,20 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_otfje"]
-radius = 9.0
-height = 26.0
-
 [node name="Player" type="CharacterBody2D"]
+z_index = 2
 position = Vector2(19, 19)
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_4k3us")
+
+[node name="PhysicsCollisionShape" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_otfje")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_6ryu7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_otfje")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
@@ -44,3 +47,15 @@ scale = Vector2(0.5, 0.5)
 [node name="BasicGun2" parent="." instance=ExtResource("3_vb3vr")]
 position = Vector2(11, -7)
 scale = Vector2(0.5, 0.5)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 8
+
+[node name="HitBoxCollisionShape" type="CollisionShape2D" parent="HitBox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_otfje")
+
+[node name="Health" parent="." instance=ExtResource("4_5hvvy")]
+MaxHealth = 500
+
+[connection signal="Destroyed" from="Health" to="." method="OnDestroyed"]

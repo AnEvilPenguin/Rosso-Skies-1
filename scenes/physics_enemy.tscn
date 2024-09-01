@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cn47bmosjuhlu"]
+[gd_scene load_steps=7 format=3 uid="uid://cn47bmosjuhlu"]
 
 [ext_resource type="Script" path="res://scripts/PhysicsEnemy.cs" id="1_cyhxp"]
 [ext_resource type="Texture2D" uid="uid://ctr2eyp00qch3" path="res://assets/art/Basic_Plane.png" id="1_xa83d"]
 [ext_resource type="PackedScene" uid="uid://b7e1hpayntdtq" path="res://scenes/components/health.tscn" id="3_h3sg1"]
+[ext_resource type="PackedScene" uid="uid://crutsll5t0u2c" path="res://scenes/basic_gun.tscn" id="4_5lt48"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t3owf"]
 radius = 16.0
@@ -11,6 +12,7 @@ radius = 16.0
 radius = 12.0
 
 [node name="PhysicsEnemy" type="CharacterBody2D"]
+z_index = 2
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_cyhxp")
@@ -30,3 +32,13 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CapsuleShape2D_8misi")
+
+[node name="BasicGun" parent="." instance=ExtResource("4_5lt48")]
+unique_name_in_owner = true
+show_behind_parent = true
+position = Vector2(12, 0)
+
+[node name="PlayerDetectionRayCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(14, 0)
+target_position = Vector2(75, 0)

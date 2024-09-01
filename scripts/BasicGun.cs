@@ -12,6 +12,10 @@ public partial class BasicGun : Node2D
 	public float MuzzleVelocity = 400;
 	[Export]
 	public float Range = 400;
+	[Export]
+	public int[] Layer = new int [] { 3 };
+	[Export]
+	public int[] Mask = new int[] { 2 };
 
 	private double _timer;
 
@@ -40,7 +44,9 @@ public partial class BasicGun : Node2D
 			.SetLifetime(Range / MuzzleVelocity)
 			.SetTexture(BulletTexture)
 			.SetSpriteRotationDegrees(90)
-			.SetSpriteScale(new Vector2(0.05f, 0.05f));
+			.SetSpriteScale(new Vector2(0.05f, 0.05f))
+			.SetCollisionLayers(Layer)
+			.SetCollisionMasks(Mask);
 
         GetNode("/root").AddChild(bullet);
 
