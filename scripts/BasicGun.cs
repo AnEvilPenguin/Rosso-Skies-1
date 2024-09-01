@@ -35,6 +35,7 @@ public partial class BasicGun : Node2D
 		// Should help with upgrades?
 		var bullet = new Bullet()
 		{
+			Name = GetParent().Name + $"-Bullet-{GD.Randi()}",
 			Position = GetNode<Marker2D>("%Marker2D").GlobalPosition,
 			Rotation = rotation,
 		};

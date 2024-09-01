@@ -26,11 +26,11 @@ texture = ExtResource("1_xa83d")
 
 [node name="Health" parent="." instance=ExtResource("3_h3sg1")]
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="HitboxCollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CapsuleShape2D_8misi")
 
 [node name="BasicGun" parent="." instance=ExtResource("4_5lt48")]

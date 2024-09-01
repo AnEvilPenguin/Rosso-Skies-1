@@ -41,6 +41,8 @@ public partial class Level0 : Node2D
 
         _spawnPoint.ProgressRatio = GD.Randf();
 
+        mob.Name = $"PhysicsEnemy-{GD.Randi()}";
+
         // Set the mob's direction perpendicular to the path direction.
         float direction = _spawnPoint.Rotation + Mathf.Pi / 2;
 
