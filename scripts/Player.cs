@@ -5,6 +5,10 @@ using System.Linq;
 
 public partial class Player : CharacterBody2D
 {
+	// TODO layer to own component
+	[Signal]
+	public delegate void LayerChangedEventHandler(int layer);
+
 	[Export]
 	public float MinSpeed = 20f;
 	[Export]
@@ -15,6 +19,10 @@ public partial class Player : CharacterBody2D
 	public int Maneuverability = 50;
 
 	public Health Health;
+
+	public int Ceiling = 4;
+
+    public int Layer = 0;
 
 	private float _speed;
 	private Camera2D _camera;
@@ -50,6 +58,27 @@ public partial class Player : CharacterBody2D
 
 		if (Input.IsActionPressed("Shoot Primary"))
 			_guns.ForEach(gun => gun.Shoot(direction, Rotation, _speed));
+
+		if (Input.IsActionJustPressed("Fly Up"))
+		{
+			if (Layer != Ceiling)
+			{
+                Layer++;
+                EmitSignal(SignalName.LayerChanged, Layer);
+            }
+        }
+			
+
+		if (Input.IsActionJustPressed("Fly Down"))
+		{
+			if(Layer > 1)
+			{
+				Layer--;
+                EmitSignal(SignalName.LayerChanged, Layer);
+            }
+        }	
+
+		// TODO consider some sort of takeoff automation.
 
 		Zoom();
 

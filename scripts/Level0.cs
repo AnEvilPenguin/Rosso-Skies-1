@@ -7,6 +7,8 @@ public partial class Level0 : Node2D
 	public PackedScene Enemy;
     [Export]
     public float TimerSeconds = 7.5f;
+    [Export]
+    public int Ceiling = 4;
 
     private PathFollow2D _spawnPoint;
     private double _timer;
@@ -25,6 +27,11 @@ public partial class Level0 : Node2D
 
         player.Health.DamageTaken += (int damage, int currentHealth) => gui.UpdateHealth(currentHealth);
         player.Health.Destroyed += () => gui.UpdateHealth("destroyed");
+
+        gui.UpdateLayer(player.Layer);
+
+        player.LayerChanged += (int layer) => gui.UpdateLayer(layer);
+        player.Ceiling = Ceiling;
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
