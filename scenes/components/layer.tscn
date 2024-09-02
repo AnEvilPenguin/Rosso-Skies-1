@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5kuapcx8ft7x"]
+
+[ext_resource type="Script" path="res://scripts/Components/Layer.cs" id="1_f526v"]
+
+[node name="Layer" type="Node"]
+script = ExtResource("1_f526v")

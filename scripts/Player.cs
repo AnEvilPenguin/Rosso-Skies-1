@@ -20,25 +20,24 @@ public partial class Player : CharacterBody2D
 
 	public Health Health;
 
-	public int Ceiling = 4;
-
-    public int Layer = 0;
+    public Layer Layer;
 
 	private float _speed;
 	private Camera2D _camera;
 
 	private List<BasicGun> _guns;
 
-    public override void _Ready()
-    {
-        _camera = GetNode<Camera2D>("%Camera2D");
+	public override void _Ready()
+	{
+		_camera = GetNode<Camera2D>("%Camera2D");
 
 		_guns = GetChildren()
 			.OfType<BasicGun>()
 			.ToList();
 
 		Health = GetNode<Health>("Health");
-    }
+		Layer = GetNode<Layer>("Layer");
+	}
 
     public override void _PhysicsProcess(double delta)
 	{
@@ -60,23 +59,9 @@ public partial class Player : CharacterBody2D
 			_guns.ForEach(gun => gun.Shoot(direction, Rotation, _speed));
 
 		if (Input.IsActionJustPressed("Fly Up"))
-		{
-			if (Layer != Ceiling)
-			{
-                Layer++;
-                EmitSignal(SignalName.LayerChanged, Layer);
-            }
-        }
-			
-
-		if (Input.IsActionJustPressed("Fly Down"))
-		{
-			if(Layer > 1)
-			{
-				Layer--;
-                EmitSignal(SignalName.LayerChanged, Layer);
-            }
-        }	
+			Layer.RaiseLayer();
+		else if (Input.IsActionJustPressed("Fly Down"))
+			Layer.LowerLayer();
 
 		// TODO consider some sort of takeoff automation.
 

@@ -28,10 +28,12 @@ public partial class Level0 : Node2D
         player.Health.DamageTaken += (int damage, int currentHealth) => gui.UpdateHealth(currentHealth);
         player.Health.Destroyed += () => gui.UpdateHealth("destroyed");
 
-        gui.UpdateLayer(player.Layer);
+        gui.UpdateLayer(player.Layer.CurrentLayer);
 
-        player.LayerChanged += (int layer) => gui.UpdateLayer(layer);
-        player.Ceiling = Ceiling;
+        player.Layer.Ceiling = Ceiling;
+        player.Layer.Floor = 0;
+
+        player.Layer.LayerChanged += (int layer) => gui.UpdateLayer(layer); 
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
