@@ -26,7 +26,7 @@ public partial class PhysicsEnemy : CharacterBody2D
 
         _playerDetection = GetNode<RayCast2D>("%PlayerDetectionRayCast");
 
-        var detectionNode = GetNode<Node>("%EnemyDetection");
+        var detectionNode = GetNode<Node>("%ForwardEnemyDetection");
         _enemyDetection = detectionNode.GetChildren().OfType<RayCast2D>();
 
         _gun = GetNode<BasicGun>("%BasicGun");
