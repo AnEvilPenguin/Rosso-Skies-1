@@ -14,6 +14,8 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public int Maneuverability = 50;
 
+	public Health Health;
+
 	private float _speed;
 	private Camera2D _camera;
 
@@ -26,6 +28,8 @@ public partial class Player : CharacterBody2D
 		_guns = GetChildren()
 			.OfType<BasicGun>()
 			.ToList();
+
+		Health = GetNode<Health>("Health");
     }
 
     public override void _PhysicsProcess(double delta)

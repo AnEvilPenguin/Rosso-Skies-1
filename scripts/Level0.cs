@@ -15,7 +15,16 @@ public partial class Level0 : Node2D
     public override void _Ready()
 	{
         ResetTimer();
+
         _spawnPoint = GetNode<PathFollow2D>("%EnemySpawnLocation");
+
+        var player = GetNode<Player>("%Player");
+        var gui = GetNode<GUI>("GUI");
+
+        gui.UpdateHealth(player.Health.MaxHealth);
+
+        player.Health.DamageTaken += (int damage, int currentHealth) => gui.UpdateHealth(currentHealth);
+        player.Health.Destroyed += () => gui.UpdateHealth("destroyed");
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

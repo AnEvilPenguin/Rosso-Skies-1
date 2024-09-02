@@ -1,11 +1,21 @@
-[gd_scene format=3 uid="uid://rd7h8aycuk4u"]
+[gd_scene load_steps=2 format=3 uid="uid://rd7h8aycuk4u"]
+
+[ext_resource type="Script" path="res://scripts/UI/GUI.cs" id="1_a63uy"]
 
 [node name="GUI" type="CanvasLayer"]
 layer = 5
+script = ExtResource("1_a63uy")
 
-[node name="Label" type="Label" parent="."]
+[node name="LayerLabel" type="Label" parent="."]
 offset_left = 5.0
-offset_top = 3.0
+offset_top = 5.0
 offset_right = 57.0
-offset_bottom = 26.0
+offset_bottom = 30.0
 text = "Layer: "
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 35.0
+offset_right = 65.0
+offset_bottom = 60.0
+text = "Health: "
