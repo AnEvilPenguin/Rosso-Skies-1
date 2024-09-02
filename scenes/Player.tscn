@@ -35,11 +35,6 @@ shape = SubResource("CapsuleShape2D_otfje")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_6ryu7")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-unique_name_in_owner = true
-zoom = Vector2(2, 2)
-position_smoothing_enabled = true
-
 [node name="BasicGun" parent="." instance=ExtResource("3_vb3vr")]
 position = Vector2(11, 7)
 scale = Vector2(0.5, 0.5)

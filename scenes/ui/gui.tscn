@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://rd7h8aycuk4u"]
+
+[node name="GUI" type="CanvasLayer"]
+layer = 5
+
+[node name="Label" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 57.0
+offset_bottom = 26.0
+text = "Layer: "

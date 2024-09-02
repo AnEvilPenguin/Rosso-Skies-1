@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://btl4n0mcixyj6"]
+[gd_scene load_steps=10 format=3 uid="uid://btl4n0mcixyj6"]
 
 [ext_resource type="Script" path="res://scripts/SpawnRadius.cs" id="1_bhawx"]
 [ext_resource type="Script" path="res://scripts/Level0.cs" id="1_echsl"]
 [ext_resource type="PackedScene" uid="uid://c13i7nttddmjt" path="res://scenes/Player.tscn" id="1_f0fww"]
 [ext_resource type="Texture2D" uid="uid://duen0wap1xcat" path="res://assets/art/Terrain.png" id="2_5ra38"]
+[ext_resource type="PackedScene" uid="uid://rd7h8aycuk4u" path="res://scenes/ui/gui.tscn" id="6_q40ga"]
 [ext_resource type="PackedScene" uid="uid://cn47bmosjuhlu" path="res://scenes/physics_enemy.tscn" id="7_sv50e"]
 
 [sub_resource type="Curve2D" id="Curve2D_6m13n"]
@@ -41,6 +42,11 @@ script = ExtResource("1_bhawx")
 unique_name_in_owner = true
 collision_layer = 3
 
+[node name="Camera2D" type="Camera2D" parent="EnemySpawnRadius/Player"]
+unique_name_in_owner = true
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+
 [node name="EnemySpawnLocation" type="PathFollow2D" parent="EnemySpawnRadius"]
 unique_name_in_owner = true
 
@@ -52,3 +58,5 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 65536, 0, 0, 65537, 0, 0,
 
 [node name="PhysicsEnemy" parent="." instance=ExtResource("7_sv50e")]
 position = Vector2(20, 309)
+
+[node name="GUI" parent="." instance=ExtResource("6_q40ga")]
