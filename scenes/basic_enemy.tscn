@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2q484o7ieh7t"]
+[gd_scene load_steps=6 format=3 uid="uid://d2q484o7ieh7t"]
 
 [ext_resource type="Texture2D" uid="uid://b732e7r0cq0wg" path="res://icon.svg" id="1_duvgj"]
 [ext_resource type="Script" path="res://scripts/BasicEnemy.cs" id="1_glnfs"]
 [ext_resource type="PackedScene" uid="uid://b7e1hpayntdtq" path="res://scenes/components/health.tscn" id="2_vdq5x"]
+[ext_resource type="PackedScene" uid="uid://crutsll5t0u2c" path="res://scenes/basic_gun.tscn" id="4_fairq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b12wk"]
 
@@ -22,3 +23,5 @@ collision_mask = 7
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea"]
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_b12wk")
+
+[node name="BasicGun" parent="." instance=ExtResource("4_fairq")]

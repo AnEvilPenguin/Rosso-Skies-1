@@ -14,6 +14,8 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public int Maneuverability = 50;
 
+	public Health Health;
+
 	private float _speed;
 	private Camera2D _camera;
 
@@ -26,6 +28,8 @@ public partial class Player : CharacterBody2D
 		_guns = GetChildren()
 			.OfType<BasicGun>()
 			.ToList();
+
+		Health = GetNode<Health>("Health");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -37,14 +41,14 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionPressed("Turn Left") || Input.IsActionPressed("Turn Right"))
             Turn(inputDirection.X);
 
-        Vector2 direction = new Vector2(MathF.Cos(Rotation), MathF.Sin(Rotation));
+        var direction = new Vector2(MathF.Cos(Rotation), MathF.Sin(Rotation));
 
         if (Input.IsActionPressed("Accelerate"))
             IncreaseSpeed();
 		else if (Input.IsActionPressed("Decelerate"))
 			DecreaseSpeed();
 
-		if (Input.IsActionJustPressed("Shoot Primary"))
+		if (Input.IsActionPressed("Shoot Primary"))
 			_guns.ForEach(gun => gun.Shoot(direction, Rotation, _speed));
 
 		Zoom();
@@ -99,4 +103,9 @@ public partial class Player : CharacterBody2D
         var diff = ((MaxSpeed - _speed) / MaxSpeed) + 1.5f;
         _camera.Zoom = new Vector2(diff, diff);
     }
+
+	private void OnDestroyed()
+	{
+		GD.Print("Game Over");
+	}
 }
