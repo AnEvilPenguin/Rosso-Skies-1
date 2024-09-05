@@ -30,8 +30,8 @@ public partial class PhysicsEnemy : CharacterBody2D
         _enemyDetection = detectionNode.GetChildren().OfType<RayCast2D>();
 
         _gun = GetNode<BasicGun>("%BasicGun");
-        _gun.Layer = new int[] { 4 };
-        _gun.Mask = new int[] { 1 };
+        _gun.Layer = new int[] { 2 };
+        _gun.Mask = new int[] { 3 };
 
         CurrentSpeed = Speed;
 

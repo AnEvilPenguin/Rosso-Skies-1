@@ -13,9 +13,9 @@ public partial class BasicGun : Node2D
 	[Export]
 	public float Range = 400;
 	[Export]
-	public int[] Layer = new int [] { 3 };
+	public int[] Layer = new int [] { 1 };
 	[Export]
-	public int[] Mask = new int[] { 2 };
+	public int[] Mask = new int[] { 4 };
 
 	private double _timer;
 

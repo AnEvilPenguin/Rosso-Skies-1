@@ -27,8 +27,7 @@ texture = ExtResource("1_xa83d")
 [node name="Health" parent="." instance=ExtResource("3_h3sg1")]
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 4
+collision_layer = 8
 
 [node name="HitboxCollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CapsuleShape2D_8misi")
@@ -49,14 +48,14 @@ unique_name_in_owner = true
 [node name="LeftRayCast" type="RayCast2D" parent="ForwardEnemyDetection"]
 position = Vector2(7, -13)
 target_position = Vector2(30, 0)
-collision_mask = 2
+collision_mask = 8
 
 [node name="RightRayCast" type="RayCast2D" parent="ForwardEnemyDetection"]
 position = Vector2(7, 14)
 target_position = Vector2(30, 0)
-collision_mask = 2
+collision_mask = 8
 
 [node name="CenterRayCast" type="RayCast2D" parent="ForwardEnemyDetection"]
 position = Vector2(13, 0)
 target_position = Vector2(30, 0)
-collision_mask = 2
+collision_mask = 8
