@@ -27,7 +27,9 @@ public partial class Player : CharacterBody2D
 
 	private List<BasicGun> _guns;
 
-	public override void _Ready()
+	private Area2D _hitBox;
+
+    public override void _Ready()
 	{
 		_camera = GetNode<Camera2D>("%Camera2D");
 
@@ -37,7 +39,39 @@ public partial class Player : CharacterBody2D
 
 		Health = GetNode<Health>("Health");
 		Layer = GetNode<Layer>("Layer");
+
+		_hitBox = GetNode<Area2D>("HitBox");
+
+        Layer.LayerChanged += (int layer, int previousLayer) => {
+			var collision = getLayer(layer);
+			var mask = getMask(layer);
+
+            _guns.ForEach(gun => {
+				gun.Layer = new int[] { collision };
+				gun.Mask = new int[] { mask };
+            });
+
+			// TODO make this not terrible
+
+			SetCollisionLayerValue(getLayer(previousLayer), false);
+            SetCollisionLayerValue(collision, true);
+
+			_hitBox.SetCollisionLayerValue(getLayer(previousLayer), false);
+			_hitBox.SetCollisionLayerValue(collision, true);
+
+            SetCollisionMaskValue(getMask(previousLayer), false);
+			SetCollisionMaskValue(mask, true);
+
+            _hitBox.SetCollisionMaskValue(getMask(previousLayer), false);
+            _hitBox.SetCollisionMaskValue(mask, true);
+        };
 	}
+
+	private int getLayer(int layer) =>
+		2 * layer + 1;
+
+	private int getMask(int layer) =>
+		2 * layer + 2;
 
     public override void _PhysicsProcess(double delta)
 	{

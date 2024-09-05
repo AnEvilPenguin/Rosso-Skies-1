@@ -33,7 +33,7 @@ public partial class Level0 : Node2D
         player.Layer.Ceiling = Ceiling;
         player.Layer.Floor = 0;
 
-        player.Layer.LayerChanged += (int layer) => gui.UpdateLayer(layer); 
+        player.Layer.LayerChanged += (int layer, int previousLayer) => gui.UpdateLayer(layer); 
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

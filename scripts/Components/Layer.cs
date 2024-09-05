@@ -3,7 +3,7 @@ using Godot;
 public partial class Layer : Node
 {
     [Signal]
-    public delegate void LayerChangedEventHandler(int layer);
+    public delegate void LayerChangedEventHandler(int newLayer, int previousLayer);
 
     public double Cooldown = 10;
     public int Ceiling = 0;
@@ -13,13 +13,13 @@ public partial class Layer : Node
         get => _currentLayer;
         set // allows override of timer if necessary
         { 
+            EmitSignal(SignalName.LayerChanged, value, _currentLayer);
             _currentLayer = value;
-            EmitSignal(SignalName.LayerChanged, _currentLayer);
         } 
     }
 
     private double _timer;
-    private int _currentLayer = 0;
+    private int _currentLayer = 1;
 
     public override void _Ready() =>
         ResetTimer();
