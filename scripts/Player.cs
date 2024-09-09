@@ -29,6 +29,8 @@ public partial class Player : CharacterBody2D
 
 	private Area2D _hitBox;
 
+	private AnimatedSprite2D _sprite;
+
     public override void _Ready()
 	{		
 		_zoom = GetNode<CameraZoom>("CameraZoom");
@@ -36,6 +38,9 @@ public partial class Player : CharacterBody2D
 		_guns = GetChildren()
 			.OfType<BasicGun>()
 			.ToList();
+
+		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		_sprite.Play("idle");
 
 		Health = GetNode<Health>("Health");
 		Layer = GetNode<Layer>("Layer");

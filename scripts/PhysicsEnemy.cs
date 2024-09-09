@@ -18,6 +18,8 @@ public partial class PhysicsEnemy : CharacterBody2D
     private IEnumerable<RayCast2D> _enemyDetection; // enemy being a player enemy
     private BasicGun _gun;
 
+    private AnimatedSprite2D _sprite;
+
     private HashSet<PhysicsEnemy> _slow = new();
 
     public override void _Ready()
@@ -25,6 +27,9 @@ public partial class PhysicsEnemy : CharacterBody2D
         Health = GetNode<Health>("Health");
 
         _playerDetection = GetNode<RayCast2D>("%PlayerDetectionRayCast");
+
+        _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        _sprite.Play("idle");
 
         var detectionNode = GetNode<Node>("%ForwardEnemyDetection");
         _enemyDetection = detectionNode.GetChildren().OfType<RayCast2D>();

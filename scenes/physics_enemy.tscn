@@ -1,12 +1,48 @@
-[gd_scene load_steps=7 format=3 uid="uid://cn47bmosjuhlu"]
+[gd_scene load_steps=12 format=3 uid="uid://cn47bmosjuhlu"]
 
 [ext_resource type="Script" path="res://scripts/PhysicsEnemy.cs" id="1_cyhxp"]
-[ext_resource type="Texture2D" uid="uid://ctr2eyp00qch3" path="res://assets/art/Basic_Plane.png" id="1_xa83d"]
+[ext_resource type="Texture2D" uid="uid://i6ulp6io8jwy" path="res://assets/art/planes/Enemy_Plane.png" id="2_8wxnf"]
 [ext_resource type="PackedScene" uid="uid://b7e1hpayntdtq" path="res://scenes/components/health.tscn" id="3_h3sg1"]
 [ext_resource type="PackedScene" uid="uid://crutsll5t0u2c" path="res://scenes/basic_gun.tscn" id="4_5lt48"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t3owf"]
 radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sup1"]
+atlas = ExtResource("2_8wxnf")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbmga"]
+atlas = ExtResource("2_8wxnf")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kke47"]
+atlas = ExtResource("2_8wxnf")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyln1"]
+atlas = ExtResource("2_8wxnf")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s22lf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sup1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbmga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kke47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyln1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 60.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8misi"]
 radius = 12.0
@@ -20,9 +56,11 @@ script = ExtResource("1_cyhxp")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_t3owf")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
-texture = ExtResource("1_xa83d")
+sprite_frames = SubResource("SpriteFrames_s22lf")
+animation = &"idle"
+frame_progress = 0.2362
 
 [node name="Health" parent="." instance=ExtResource("3_h3sg1")]
 
@@ -41,6 +79,7 @@ position = Vector2(12, 0)
 unique_name_in_owner = true
 position = Vector2(14, 0)
 target_position = Vector2(75, 0)
+collision_mask = 4
 
 [node name="ForwardEnemyDetection" type="Node2D" parent="."]
 unique_name_in_owner = true
