@@ -80,10 +80,10 @@ public partial class Player : CharacterBody2D
 	}
 
 	private int getLayer(int layer) =>
-		2 * layer + 1;
+		2 * layer + 3;
 
 	private int getMask(int layer) =>
-		2 * layer + 2;
+		2 * layer + 4;
 
     public override void _PhysicsProcess(double delta)
 	{
