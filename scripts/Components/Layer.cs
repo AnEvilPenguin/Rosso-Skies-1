@@ -19,7 +19,7 @@ public partial class Layer : Node
     }
 
     private double _timer;
-    private int _currentLayer = 1;
+    private int _currentLayer = 0;
 
     public override void _Ready() =>
         ResetTimer();
