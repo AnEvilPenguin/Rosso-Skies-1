@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c13i7nttddmjt"]
+[gd_scene load_steps=9 format=3 uid="uid://c13i7nttddmjt"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_4k3us"]
 [ext_resource type="Texture2D" uid="uid://ctr2eyp00qch3" path="res://assets/art/Basic_Plane.png" id="1_5h5ss"]
 [ext_resource type="PackedScene" uid="uid://crutsll5t0u2c" path="res://scenes/basic_gun.tscn" id="3_vb3vr"]
 [ext_resource type="PackedScene" uid="uid://b7e1hpayntdtq" path="res://scenes/components/health.tscn" id="4_5hvvy"]
 [ext_resource type="PackedScene" uid="uid://c5kuapcx8ft7x" path="res://scenes/components/layer.tscn" id="5_y2xkt"]
+[ext_resource type="Script" path="res://scripts/Components/CameraZoom.cs" id="6_cgqas"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_otfje"]
 radius = 9.0
@@ -57,5 +58,8 @@ shape = SubResource("CapsuleShape2D_otfje")
 MaxHealth = 500
 
 [node name="Layer" parent="." instance=ExtResource("5_y2xkt")]
+
+[node name="CameraZoom" type="Node" parent="."]
+script = ExtResource("6_cgqas")
 
 [connection signal="Destroyed" from="Health" to="." method="OnDestroyed"]

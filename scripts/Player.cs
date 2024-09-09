@@ -23,15 +23,15 @@ public partial class Player : CharacterBody2D
     public Layer Layer;
 
 	private float _speed;
-	private Camera2D _camera;
+	private CameraZoom _zoom;
 
 	private List<BasicGun> _guns;
 
 	private Area2D _hitBox;
 
     public override void _Ready()
-	{
-		_camera = GetNode<Camera2D>("%Camera2D");
+	{		
+		_zoom = GetNode<CameraZoom>("CameraZoom");
 
 		_guns = GetChildren()
 			.OfType<BasicGun>()
@@ -39,7 +39,7 @@ public partial class Player : CharacterBody2D
 
 		Health = GetNode<Health>("Health");
 		Layer = GetNode<Layer>("Layer");
-
+		
 		_hitBox = GetNode<Area2D>("HitBox");
 
         Layer.LayerChanged += (int layer, int previousLayer) => {
@@ -52,6 +52,13 @@ public partial class Player : CharacterBody2D
             });
 
 			// TODO make this not terrible
+			// Probably put it into te layer or something
+
+			_zoom.SetLayer(layer, previousLayer);
+
+			SetScale(layer, previousLayer);
+
+			ZIndex += layer - previousLayer; 
 
 			SetCollisionLayerValue(getLayer(previousLayer), false);
             SetCollisionLayerValue(collision, true);
@@ -97,11 +104,12 @@ public partial class Player : CharacterBody2D
 		else if (Input.IsActionJustPressed("Fly Down"))
 			Layer.LowerLayer();
 
-		// TODO consider some sort of takeoff automation.
+        // TODO consider some sort of takeoff automation.
 
-		Zoom();
+        var speedPercent = _speed / MaxSpeed * 100f;
+		_zoom.ZoomFromSpeedPercent(speedPercent);
 
-		Velocity = direction * _speed;
+        Velocity = direction * _speed;
 
 		MoveAndSlide();
 	}
@@ -146,14 +154,16 @@ public partial class Player : CharacterBody2D
 		RotationDegrees += x * rotationFactor;
     }
 
-	private void Zoom()
-	{
-        var diff = ((MaxSpeed - _speed) / MaxSpeed) + 1.5f;
-        _camera.Zoom = new Vector2(diff, diff);
-    }
-
 	private void OnDestroyed()
 	{
 		GD.Print("Game Over");
 	}
+
+	private void SetScale(int layer, int previous)
+	{
+        var scale = Scale;
+        var diff = layer - previous;
+        var newScale = scale.X + (0.5f * diff);
+        Scale = new Vector2(newScale, newScale);
+    }
 }
