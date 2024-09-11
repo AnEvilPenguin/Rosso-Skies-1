@@ -20,6 +20,8 @@ namespace RossoSkies1.scripts.Components
 
         public override void _Ready()
         {
+            Scale = new Vector2(0.05f, 0.05f);
+
             AddChild(_sprite);
 
             _collisionShape2D.Shape = new RectangleShape2D() { Size = new Vector2(3, 0.5f) };

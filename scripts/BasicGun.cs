@@ -18,9 +18,15 @@ public partial class BasicGun : Node2D
 	public int[] Mask = new int[] { 4 };
 
 	private double _timer;
+	private float _initialScale;
 
-    public override void _Ready() =>
+    public override void _Ready()
+	{
         ResetTimer();
+
+		_initialScale = Scale.X;
+    }
+        
 
     public override void _Process(double delta) =>
 		_timer -= delta;
@@ -29,7 +35,6 @@ public partial class BasicGun : Node2D
 	{
 		if (_timer > 0)
 			return;
-
 
 		// TODO consider the builder pattern
 		// Should help with upgrades?
@@ -40,12 +45,19 @@ public partial class BasicGun : Node2D
 			Rotation = rotation,
 		};
 
-		bullet.SetDirection(direction) // Consider having bullets converge slightly?
+        float scale = bullet.Scale.X;
+
+        for (int i = 0; i < Scale.X; i++)
+        {
+            scale += scale;
+        }
+
+        bullet.SetDirection(direction) // Consider having bullets converge slightly?
 		    .SetSpeed(speed + MuzzleVelocity)
 			.SetLifetime(Range / MuzzleVelocity)
 			.SetTexture(BulletTexture)
 			.SetSpriteRotationDegrees(90)
-			.SetSpriteScale(new Vector2(0.05f, 0.05f))
+			.SetSpriteScale(new Vector2(scale, scale))
 			.SetCollisionLayers(Layer)
 			.SetCollisionMasks(Mask);
 
@@ -53,6 +65,18 @@ public partial class BasicGun : Node2D
 
 		ResetTimer();
 	}
+
+	public void SetScale(int layer)
+	{
+        var scale = _initialScale;
+
+		for (int i = 0; i > layer; i++)
+		{
+			scale += scale;
+		}
+
+		Scale = new Vector2 (scale, scale);
+    }
 
 	private void ResetTimer() =>
 		_timer = 1 / RateOfFire;

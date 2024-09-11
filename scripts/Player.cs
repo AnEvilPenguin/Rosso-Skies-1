@@ -170,5 +170,7 @@ public partial class Player : CharacterBody2D
         var diff = layer - previous;
         var newScale = scale.X + (0.5f * diff);
         Scale = new Vector2(newScale, newScale);
+
+		_guns.ForEach(gun => gun.SetScale(layer));
     }
 }
