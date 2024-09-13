@@ -65,10 +65,10 @@ frame_progress = 0.2362
 
 [node name="Health" parent="." instance=ExtResource("3_h3sg1")]
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="."]
 collision_layer = 8
 
-[node name="HitboxCollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="HitboxCollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CapsuleShape2D_8misi")
 
 [node name="BasicGun" parent="." instance=ExtResource("4_5lt48")]
