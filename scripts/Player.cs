@@ -52,7 +52,6 @@ public partial class Player : CharacterBody2D
 			var mask = getMask(layer);
 
             _guns.ForEach(gun => {
-				gun.Layer = new int[] { collision };
 				gun.Mask = new int[] { mask };
             });
 
