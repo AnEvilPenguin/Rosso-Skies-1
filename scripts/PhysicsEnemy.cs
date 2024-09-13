@@ -170,9 +170,19 @@ public partial class PhysicsEnemy : CharacterBody2D
         SetCollisionMaskValue(oldLayer, false);
         SetCollisionMaskValue(newLayer, true);
 
-        // Update gun layer
-        // Update player detection raycast
-        // Update collision raycast
+        _gun.Layer = new int[] { newLayer };
+        _gun.Mask = new int[] { newMask };
+
+        _playerDetection.SetCollisionMaskValue(oldMask, false);
+        _playerDetection.SetCollisionMaskValue(newMask, true);
+
+        foreach (RayCast2D ray in _enemyDetection)
+        {
+            ray.SetCollisionMaskValue(oldLayer, false);
+            ray.SetCollisionMaskValue(newLayer, true);
+        }
+
+        // Scale things
     }
 
     private int getLayer(int layer) =>
