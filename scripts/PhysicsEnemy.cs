@@ -1,4 +1,5 @@
 using Godot;
+using RossoSkies1.scripts.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ public partial class PhysicsEnemy : CharacterBody2D
     public float CurrentSpeed;
 
     public Health Health;
+    public Layer Layer;
 
     private Player _player;
 
@@ -21,6 +23,9 @@ public partial class PhysicsEnemy : CharacterBody2D
     private AnimatedSprite2D _sprite;
 
     private HashSet<PhysicsEnemy> _slow = new();
+    
+    private SimpleTimer _layerTimer = new SimpleTimer();
+    private int _targetLayer;
 
     public override void _Ready()
     {
@@ -42,7 +47,14 @@ public partial class PhysicsEnemy : CharacterBody2D
 
         _player = GetParent().GetNode<Player>("%Player");
 
+        _player.Layer.LayerChanged += (int layer, int previousLayer) => OnPlayerLayerChanged(layer);
+        _layerTimer.TimerElapsed += OnLayerTimerElapsed;
+        AddChild(_layerTimer);
+
         Health.Destroyed += OnDestroyed;
+
+        Layer = GetNode<Layer>("Layer");
+        Layer.LayerChanged += OnLayerChange;
     }
 
     public override void _Process(double delta)
@@ -109,4 +121,63 @@ public partial class PhysicsEnemy : CharacterBody2D
 
         CurrentSpeed = (float)Mathf.Max(0.2, bottom * 0.8f);
     }
+
+    private void OnPlayerLayerChanged(int layer)
+    {
+        _targetLayer = layer;
+
+        if (_layerTimer.IsRunning())
+            return;
+
+        StartTimer();
+    }
+
+    private void StartTimer()
+    {
+        _layerTimer.Time = GD.RandRange(5f, 15f);
+        _layerTimer.Start();
+    }
+
+    private void OnLayerTimerElapsed()
+    {
+        if (_targetLayer == Layer.CurrentLayer)
+            return;
+
+        if (_targetLayer > Layer.CurrentLayer)
+            Layer.RaiseLayer();
+        else if (_targetLayer < Layer.CurrentLayer)
+            Layer.LowerLayer();
+
+        if (_targetLayer != Layer.CurrentLayer)
+            StartTimer();
+    }
+
+    private void OnLayerChange(int layer, int previousLayer)
+    {
+        var newLayer = getLayer(layer);
+        var newMask = getMask(layer);
+
+        var oldLayer = getLayer(previousLayer);
+        var oldMask = getMask(previousLayer);
+
+        SetCollisionLayerValue(oldLayer, false);
+        SetCollisionLayerValue(newLayer, true);
+
+        SetCollisionMaskValue(oldMask, false);
+        SetCollisionMaskValue(newMask, true);
+
+        // Conveniently handles the player mask (which is our layer);
+        SetCollisionMaskValue(oldLayer, false);
+        SetCollisionMaskValue(newLayer, true);
+
+        // Update gun layer
+        // Update player detection raycast
+        // Update collision raycast
+    }
+
+    private int getLayer(int layer) =>
+        2 * layer + 4;
+
+    private int getMask(int layer) =>
+        2 * layer + 3;
 }

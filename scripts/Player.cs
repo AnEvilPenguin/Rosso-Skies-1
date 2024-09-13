@@ -57,7 +57,8 @@ public partial class Player : CharacterBody2D
             });
 
 			// TODO make this not terrible
-			// Probably put it into te layer or something
+			// Probably put it into the layer or something
+			// FIXME Ideally we should see if we can work out why setting via a bitmask doesn't work as expected?
 
 			_zoom.SetLayer(layer, previousLayer);
 
