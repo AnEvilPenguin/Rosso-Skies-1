@@ -32,6 +32,10 @@ window/stretch/aspect="expand"
 
 project/assembly_name="Rosso Skies 1"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 Continue={
