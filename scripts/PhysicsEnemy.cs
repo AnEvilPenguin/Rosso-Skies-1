@@ -72,7 +72,7 @@ public partial class PhysicsEnemy : CharacterBody2D
             if (ray.GetCollider() != null)
             {
                 var collided = ray.GetCollider() as Node2D;
-                if (collided.GetParent() is PhysicsEnemy enemy)
+                if (collided is PhysicsEnemy enemy)
                 {
                     _slow.Add(enemy);
                 }
