@@ -27,6 +27,8 @@ public partial class PhysicsEnemy : CharacterBody2D
     private SimpleTimer _layerTimer = new SimpleTimer();
     private int _targetLayer;
 
+    private Area2D _hitBox;
+
     public override void _Ready()
     {
         Health = GetNode<Health>("Health");
@@ -42,6 +44,8 @@ public partial class PhysicsEnemy : CharacterBody2D
         _gun = GetNode<BasicGun>("%BasicGun");
         _gun.Layer = new int[] { 2 };
         _gun.Mask = new int[] { 3 };
+
+        _hitBox = GetNode<Area2D>("HitBox");
 
         CurrentSpeed = Speed;
 
@@ -61,7 +65,6 @@ public partial class PhysicsEnemy : CharacterBody2D
     {
         if (_playerDetection.GetCollider() is Player)
         {
-            // FIXME bullet layer
             _gun.Shoot(GlobalPosition.DirectionTo(_player.GlobalPosition), Rotation, Speed);
         }
 
@@ -154,6 +157,10 @@ public partial class PhysicsEnemy : CharacterBody2D
 
     private void OnLayerChange(int layer, int previousLayer)
     {
+        // TODO make this not terrible
+        // Probably put it into the layer or something?
+        // FIXME Ideally we should see if we can work out why setting via a bitmask doesn't work as expected?
+
         var newLayer = getLayer(layer);
         var newMask = getMask(layer);
 
@@ -163,14 +170,19 @@ public partial class PhysicsEnemy : CharacterBody2D
         SetCollisionLayerValue(oldLayer, false);
         SetCollisionLayerValue(newLayer, true);
 
+        _hitBox.SetCollisionLayerValue(oldLayer, false);
+        _hitBox.SetCollisionLayerValue(newLayer, true);
+
         SetCollisionMaskValue(oldMask, false);
         SetCollisionMaskValue(newMask, true);
+
+        _hitBox.SetCollisionMaskValue(oldMask, false);
+        _hitBox.SetCollisionMaskValue(newMask, true);
 
         // Conveniently handles the player mask (which is our layer);
         SetCollisionMaskValue(oldLayer, false);
         SetCollisionMaskValue(newLayer, true);
 
-        _gun.Layer = new int[] { newLayer };
         _gun.Mask = new int[] { newMask };
 
         _playerDetection.SetCollisionMaskValue(oldMask, false);
@@ -182,7 +194,7 @@ public partial class PhysicsEnemy : CharacterBody2D
             ray.SetCollisionMaskValue(newLayer, true);
         }
 
-        // Scale things
+        SetScale(layer, previousLayer);
     }
 
     private int getLayer(int layer) =>
@@ -190,4 +202,14 @@ public partial class PhysicsEnemy : CharacterBody2D
 
     private int getMask(int layer) =>
         2 * layer + 3;
+
+    private void SetScale(int layer, int previous)
+    {
+        var scale = Scale;
+        var diff = layer - previous;
+        var newScale = scale.X + (0.5f * diff);
+        Scale = new Vector2(newScale, newScale);
+
+        _gun.SetScale(layer);
+    }
 }
