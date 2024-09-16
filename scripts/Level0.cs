@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class Level0 : Node2D
@@ -15,6 +16,8 @@ public partial class Level0 : Node2D
     private double _timer;
 
     private Player _player;
+
+    private List<ParallaxLayer> _cloudLayers;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -37,6 +40,18 @@ public partial class Level0 : Node2D
         _player.Layer.Floor = 0;
 
         _player.Layer.LayerChanged += (int layer, int previousLayer) => gui.UpdateLayer(layer);
+        _player.Layer.LayerChanged += UpdateCloudLayer;
+
+        var cloudLayer0 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer");
+        var cloudLayer1 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer1");
+        var cloudLayer2 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer2");
+        var cloudLayer3 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer3");
+        var cloudLayer4 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer4");
+
+        _cloudLayers = new List<ParallaxLayer>()
+        {
+            cloudLayer0 , cloudLayer1, cloudLayer2, cloudLayer3, cloudLayer4
+        };
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -78,5 +93,16 @@ public partial class Level0 : Node2D
         
         mob.Layer.CurrentLayer = _player.Layer.CurrentLayer;
         mob.Layer.Ceiling = Ceiling;
+    }
+
+    private void UpdateCloudLayer(int layer, int previousLayer)
+    {
+        if (previousLayer > layer)
+        {
+            _cloudLayers[previousLayer].Visible = false;
+            return;
+        }
+
+        _cloudLayers[layer].Visible = true;
     }
 }
