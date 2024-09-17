@@ -19,6 +19,7 @@ public partial class BasicGun : Node2D
 
 	private double _timer;
 	private float _initialScale;
+	private int _currentLayer;
 
     public override void _Ready()
 	{
@@ -45,19 +46,12 @@ public partial class BasicGun : Node2D
 			Rotation = rotation,
 		};
 
-        float scale = bullet.Scale.X;
-
-        for (int i = 0; i < Scale.X; i++)
-        {
-            scale += scale;
-        }
-
         bullet.SetDirection(direction) // Consider having bullets converge slightly?
 		    .SetSpeed(speed + MuzzleVelocity)
-			.SetLifetime(Range / MuzzleVelocity)
+			.SetLifetime((Range / MuzzleVelocity) * ((_currentLayer + 1) * 0.5f))
 			.SetTexture(BulletTexture)
 			.SetSpriteRotationDegrees(90)
-			.SetSpriteScale(new Vector2(scale, scale))
+			.SetScale(_currentLayer)
 			.SetCollisionLayers(Layer)
 			.SetCollisionMasks(Mask);
 
@@ -66,17 +60,8 @@ public partial class BasicGun : Node2D
 		ResetTimer();
 	}
 
-	public void SetScale(int layer)
-	{
-        var scale = _initialScale;
-
-		for (int i = 0; i > layer; i++)
-		{
-			scale += scale;
-		}
-
-		Scale = new Vector2 (scale, scale);
-    }
+	public void SetLayer(int layer) =>
+        _currentLayer = layer;
 
 	private void ResetTimer() =>
 		_timer = 1 / RateOfFire;

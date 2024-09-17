@@ -210,6 +210,6 @@ public partial class PhysicsEnemy : CharacterBody2D
         var newScale = scale.X + (0.5f * diff);
         Scale = new Vector2(newScale, newScale);
 
-        _gun.SetScale(layer);
+        _gun.SetLayer(layer);
     }
 }

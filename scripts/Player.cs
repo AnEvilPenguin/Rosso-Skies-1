@@ -171,6 +171,7 @@ public partial class Player : CharacterBody2D
         var newScale = scale.X + (0.5f * diff);
         Scale = new Vector2(newScale, newScale);
 
-		_guns.ForEach(gun => gun.SetScale(layer));
+		// FIXME scale doesn't seem to apply to bullets
+		_guns.ForEach(gun => gun.SetLayer(layer));
     }
 }

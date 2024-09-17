@@ -13,6 +13,7 @@ namespace RossoSkies1.scripts.Components
         private double _timer;
         private float _speed = 300;
         private float _lifetime = 1;
+        private float _initialScale = 0.05f;
         private Sprite2D _sprite = new Sprite2D();
         private CollisionShape2D _collisionShape2D = new CollisionShape2D();
 
@@ -20,8 +21,6 @@ namespace RossoSkies1.scripts.Components
 
         public override void _Ready()
         {
-            Scale = new Vector2(0.05f, 0.05f);
-
             AddChild(_sprite);
 
             _collisionShape2D.Shape = new RectangleShape2D() { Size = new Vector2(3, 0.5f) };
@@ -81,9 +80,10 @@ namespace RossoSkies1.scripts.Components
             return this;
         }
 
-        public Bullet SetSpriteScale(Vector2 scale)
+        public Bullet SetScale(int multiplier)
         {
-            _sprite.Scale = scale;
+            float scale = _initialScale + (_initialScale * (multiplier * 0.5f));
+            Scale = new Vector2(scale, scale);
             return this;
         }
 

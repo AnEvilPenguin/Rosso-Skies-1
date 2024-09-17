@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://btl4n0mcixyj6"]
+[gd_scene load_steps=28 format=3 uid="uid://btl4n0mcixyj6"]
 
 [ext_resource type="Script" path="res://scripts/SpawnRadius.cs" id="1_bhawx"]
 [ext_resource type="Script" path="res://scripts/Level0.cs" id="1_echsl"]
@@ -42,8 +42,6 @@ shader_parameter/noise_texture = ExtResource("8_4un8e")
 frequency = 0.001
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xak61"]
-width = 3840
-height = 2160
 seamless = true
 seamless_blend_skirt = 0.75
 noise = SubResource("FastNoiseLite_jfs42")
@@ -53,6 +51,65 @@ shader = ExtResource("7_op8qv")
 shader_parameter/density = 0.15
 shader_parameter/speed = Vector2(0.005, 0.003)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_xak61")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mbric"]
+seed = 1
+frequency = 0.0009
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qgebm"]
+seamless = true
+seamless_blend_skirt = 0.75
+noise = SubResource("FastNoiseLite_mbric")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwpm1"]
+shader = ExtResource("7_op8qv")
+shader_parameter/density = 0.25
+shader_parameter/speed = Vector2(0.02, 0.01)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgebm")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nt2kb"]
+frequency = 0.001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3dqku"]
+seamless = true
+seamless_blend_skirt = 0.75
+noise = SubResource("FastNoiseLite_nt2kb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gsbi5"]
+shader = ExtResource("7_op8qv")
+shader_parameter/density = 0.15
+shader_parameter/speed = Vector2(0.005, 0.003)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_3dqku")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r8cce"]
+seed = 3
+frequency = 0.0009
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i3x15"]
+seamless = true
+seamless_blend_skirt = 0.75
+noise = SubResource("FastNoiseLite_r8cce")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5a74s"]
+shader = ExtResource("7_op8qv")
+shader_parameter/density = 0.15
+shader_parameter/speed = Vector2(0.005, 0.003)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_i3x15")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0rw8t"]
+seed = 4
+frequency = 0.0009
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_l53w5"]
+seamless = true
+seamless_blend_skirt = 0.75
+noise = SubResource("FastNoiseLite_0rw8t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqkji"]
+shader = ExtResource("7_op8qv")
+shader_parameter/density = 0.15
+shader_parameter/speed = Vector2(0.005, 0.003)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_l53w5")
 
 [node name="Level0" type="Node2D"]
 script = ExtResource("1_echsl")
@@ -92,8 +149,7 @@ motion_mirroring = Vector2(3840, 2160)
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground/CloudLayer"]
 material = SubResource("ShaderMaterial_pr568")
-offset_left = 17.0
-offset_right = 3857.0
+offset_right = 3840.0
 offset_bottom = 2160.0
 
 [node name="CloudLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -104,9 +160,8 @@ material = SubResource("ShaderMaterial_pnp04")
 motion_mirroring = Vector2(3840, 2160)
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground/CloudLayer1"]
-material = SubResource("ShaderMaterial_pr568")
-offset_left = 17.0
-offset_right = 3857.0
+material = SubResource("ShaderMaterial_dwpm1")
+offset_right = 3840.0
 offset_bottom = 2160.0
 
 [node name="CloudLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -117,9 +172,8 @@ material = SubResource("ShaderMaterial_pnp04")
 motion_mirroring = Vector2(3840, 2160)
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground/CloudLayer2"]
-material = SubResource("ShaderMaterial_pr568")
-offset_left = 17.0
-offset_right = 3857.0
+material = SubResource("ShaderMaterial_gsbi5")
+offset_right = 3840.0
 offset_bottom = 2160.0
 
 [node name="CloudLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -130,9 +184,8 @@ material = SubResource("ShaderMaterial_pnp04")
 motion_mirroring = Vector2(3840, 2160)
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground/CloudLayer3"]
-material = SubResource("ShaderMaterial_pr568")
-offset_left = 17.0
-offset_right = 3857.0
+material = SubResource("ShaderMaterial_5a74s")
+offset_right = 3840.0
 offset_bottom = 2160.0
 
 [node name="CloudLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -143,7 +196,6 @@ material = SubResource("ShaderMaterial_pnp04")
 motion_mirroring = Vector2(3840, 2160)
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground/CloudLayer4"]
-material = SubResource("ShaderMaterial_pr568")
-offset_left = 17.0
-offset_right = 3857.0
+material = SubResource("ShaderMaterial_sqkji")
+offset_right = 3840.0
 offset_bottom = 2160.0

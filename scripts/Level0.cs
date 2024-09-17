@@ -42,6 +42,8 @@ public partial class Level0 : Node2D
         _player.Layer.LayerChanged += (int layer, int previousLayer) => gui.UpdateLayer(layer);
         _player.Layer.LayerChanged += UpdateCloudLayer;
 
+        // TODO adjust layer so player flies through clouds
+        // TODO adjust layer so enemies fly through clouds
         var cloudLayer0 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer");
         var cloudLayer1 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer1");
         var cloudLayer2 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer2");
