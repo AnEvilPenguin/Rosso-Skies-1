@@ -63,7 +63,7 @@ public partial class Player : CharacterBody2D
 
 			SetScale(layer, previousLayer);
 
-			ZIndex += layer - previousLayer; 
+			ZIndex = 3 + (layer * 10);
 
 			SetCollisionLayerValue(getLayer(previousLayer), false);
             SetCollisionLayerValue(collision, true);

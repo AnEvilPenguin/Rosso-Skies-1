@@ -17,7 +17,7 @@ public partial class Level0 : Node2D
 
     private Player _player;
 
-    private List<ParallaxLayer> _cloudLayers;
+    private List<Node2D> _cloudLayers;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -42,15 +42,17 @@ public partial class Level0 : Node2D
         _player.Layer.LayerChanged += (int layer, int previousLayer) => gui.UpdateLayer(layer);
         _player.Layer.LayerChanged += UpdateCloudLayer;
 
+        GetNode<Clouds>("Clouds").Player = _player;
+
         // TODO adjust layer so player flies through clouds
         // TODO adjust layer so enemies fly through clouds
-        var cloudLayer0 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer");
-        var cloudLayer1 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer1");
-        var cloudLayer2 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer2");
-        var cloudLayer3 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer3");
-        var cloudLayer4 = GetNode<ParallaxLayer>("ParallaxBackground/CloudLayer4");
+        var cloudLayer0 = GetNode<Node2D>("Clouds/CloudLayer");
+        var cloudLayer1 = GetNode<Node2D>("Clouds/CloudLayer1");
+        var cloudLayer2 = GetNode<Node2D>("Clouds/CloudLayer2");
+        var cloudLayer3 = GetNode<Node2D>("Clouds/CloudLayer3");
+        var cloudLayer4 = GetNode<Node2D>("Clouds/CloudLayer4");
 
-        _cloudLayers = new List<ParallaxLayer>()
+        _cloudLayers = new List<Node2D>()
         {
             cloudLayer0 , cloudLayer1, cloudLayer2, cloudLayer3, cloudLayer4
         };

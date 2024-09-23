@@ -44,6 +44,7 @@ public partial class BasicGun : Node2D
 			Name = GetParent().Name + $"-Bullet-{GD.Randi()}",
 			Position = GetNode<Marker2D>("%Marker2D").GlobalPosition,
 			Rotation = rotation,
+			ZIndex = 2 + (_currentLayer * 10),
 		};
 
         bullet.SetDirection(direction) // Consider having bullets converge slightly?

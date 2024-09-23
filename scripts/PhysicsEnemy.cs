@@ -183,6 +183,8 @@ public partial class PhysicsEnemy : CharacterBody2D
         SetCollisionMaskValue(oldLayer, false);
         SetCollisionMaskValue(newLayer, true);
 
+        ZIndex = 3 + (layer * 10);
+
         _gun.Mask = new int[] { newMask };
 
         _playerDetection.SetCollisionMaskValue(oldMask, false);

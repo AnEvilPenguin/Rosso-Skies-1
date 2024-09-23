@@ -34,7 +34,6 @@ namespace RossoSkies1.scripts.Components
 
             // Put behind other objects, but in front of background.
             // We probably need to revisit this in future.
-            ZIndex = 1;
             ZAsRelative = false;
 
             base._Ready();

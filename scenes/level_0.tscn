@@ -1,13 +1,13 @@
-[gd_scene load_steps=28 format=3 uid="uid://btl4n0mcixyj6"]
+[gd_scene load_steps=27 format=3 uid="uid://btl4n0mcixyj6"]
 
 [ext_resource type="Script" path="res://scripts/SpawnRadius.cs" id="1_bhawx"]
 [ext_resource type="Script" path="res://scripts/Level0.cs" id="1_echsl"]
 [ext_resource type="PackedScene" uid="uid://c13i7nttddmjt" path="res://scenes/Player.tscn" id="1_f0fww"]
 [ext_resource type="Texture2D" uid="uid://duen0wap1xcat" path="res://assets/art/Terrain.png" id="2_5ra38"]
 [ext_resource type="PackedScene" uid="uid://rd7h8aycuk4u" path="res://scenes/ui/gui.tscn" id="6_q40ga"]
+[ext_resource type="Script" path="res://scripts/Clouds.cs" id="7_802bs"]
 [ext_resource type="Shader" path="res://scenes/ui/shaders/cloud.gdshader" id="7_op8qv"]
 [ext_resource type="PackedScene" uid="uid://cn47bmosjuhlu" path="res://scenes/physics_enemy.tscn" id="7_sv50e"]
-[ext_resource type="Texture2D" uid="uid://cllqwejroyrbi" path="res://assets/art/cloud.jpg" id="8_4un8e"]
 
 [sub_resource type="Curve2D" id="Curve2D_6m13n"]
 
@@ -32,12 +32,6 @@ texture = ExtResource("2_5ra38")
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_ekthx")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pnp04"]
-shader = ExtResource("7_op8qv")
-shader_parameter/density = 0.25
-shader_parameter/speed = Vector2(0.02, 0.01)
-shader_parameter/noise_texture = ExtResource("8_4un8e")
-
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jfs42"]
 frequency = 0.001
 
@@ -48,8 +42,8 @@ noise = SubResource("FastNoiseLite_jfs42")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pr568"]
 shader = ExtResource("7_op8qv")
-shader_parameter/density = 0.15
-shader_parameter/speed = Vector2(0.005, 0.003)
+shader_parameter/density = 0.35
+shader_parameter/speed = Vector2(0.02, 0.03)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_xak61")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_mbric"]
@@ -63,7 +57,7 @@ noise = SubResource("FastNoiseLite_mbric")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dwpm1"]
 shader = ExtResource("7_op8qv")
-shader_parameter/density = 0.25
+shader_parameter/density = 0.5
 shader_parameter/speed = Vector2(0.02, 0.01)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgebm")
 
@@ -77,7 +71,7 @@ noise = SubResource("FastNoiseLite_nt2kb")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gsbi5"]
 shader = ExtResource("7_op8qv")
-shader_parameter/density = 0.15
+shader_parameter/density = 0.65
 shader_parameter/speed = Vector2(0.005, 0.003)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_3dqku")
 
@@ -92,8 +86,8 @@ noise = SubResource("FastNoiseLite_r8cce")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5a74s"]
 shader = ExtResource("7_op8qv")
-shader_parameter/density = 0.15
-shader_parameter/speed = Vector2(0.005, 0.003)
+shader_parameter/density = 0.75
+shader_parameter/speed = Vector2(0.01, 0.005)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_i3x15")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0rw8t"]
@@ -107,8 +101,8 @@ noise = SubResource("FastNoiseLite_0rw8t")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sqkji"]
 shader = ExtResource("7_op8qv")
-shader_parameter/density = 0.15
-shader_parameter/speed = Vector2(0.005, 0.003)
+shader_parameter/density = 0.85
+shader_parameter/speed = Vector2(0.05, 0.03)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_l53w5")
 
 [node name="Level0" type="Node2D"]
@@ -121,6 +115,7 @@ script = ExtResource("1_bhawx")
 
 [node name="Player" parent="EnemySpawnRadius" instance=ExtResource("1_f0fww")]
 unique_name_in_owner = true
+position = Vector2(0, 0)
 
 [node name="Camera2D" type="Camera2D" parent="EnemySpawnRadius/Player"]
 unique_name_in_owner = true
@@ -138,64 +133,50 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 65536, 0, 0, 65537, 0, 0,
 
 [node name="GUI" parent="." instance=ExtResource("6_q40ga")]
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-layer = 50
+[node name="Clouds" type="Node2D" parent="."]
+position = Vector2(-2000, -1080)
+script = ExtResource("7_802bs")
 
-[node name="CloudLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-z_index = 50
-texture_repeat = 3
-material = SubResource("ShaderMaterial_pnp04")
-motion_mirroring = Vector2(3840, 2160)
+[node name="CloudLayer" type="Node2D" parent="Clouds"]
+z_index = 1
 
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/CloudLayer"]
+[node name="ColorRect" type="ColorRect" parent="Clouds/CloudLayer"]
 material = SubResource("ShaderMaterial_pr568")
-offset_right = 3840.0
+offset_right = 4000.0
 offset_bottom = 2160.0
 
-[node name="CloudLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="CloudLayer1" type="Node2D" parent="Clouds"]
 visible = false
-z_index = 50
-texture_repeat = 3
-material = SubResource("ShaderMaterial_pnp04")
-motion_mirroring = Vector2(3840, 2160)
+z_index = 11
 
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/CloudLayer1"]
+[node name="ColorRect" type="ColorRect" parent="Clouds/CloudLayer1"]
 material = SubResource("ShaderMaterial_dwpm1")
-offset_right = 3840.0
+offset_right = 4000.0
 offset_bottom = 2160.0
 
-[node name="CloudLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="CloudLayer2" type="Node2D" parent="Clouds"]
 visible = false
-z_index = 50
-texture_repeat = 3
-material = SubResource("ShaderMaterial_pnp04")
-motion_mirroring = Vector2(3840, 2160)
+z_index = 21
 
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/CloudLayer2"]
+[node name="ColorRect" type="ColorRect" parent="Clouds/CloudLayer2"]
 material = SubResource("ShaderMaterial_gsbi5")
-offset_right = 3840.0
+offset_right = 4000.0
 offset_bottom = 2160.0
 
-[node name="CloudLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="CloudLayer3" type="Node2D" parent="Clouds"]
 visible = false
-z_index = 50
-texture_repeat = 3
-material = SubResource("ShaderMaterial_pnp04")
-motion_mirroring = Vector2(3840, 2160)
+z_index = 31
 
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/CloudLayer3"]
+[node name="ColorRect" type="ColorRect" parent="Clouds/CloudLayer3"]
 material = SubResource("ShaderMaterial_5a74s")
-offset_right = 3840.0
+offset_right = 4000.0
 offset_bottom = 2160.0
 
-[node name="CloudLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="CloudLayer4" type="Node2D" parent="Clouds"]
 visible = false
-z_index = 50
-texture_repeat = 3
-material = SubResource("ShaderMaterial_pnp04")
-motion_mirroring = Vector2(3840, 2160)
+z_index = 41
 
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/CloudLayer4"]
+[node name="ColorRect" type="ColorRect" parent="Clouds/CloudLayer4"]
 material = SubResource("ShaderMaterial_sqkji")
-offset_right = 3840.0
+offset_right = 4000.0
 offset_bottom = 2160.0
