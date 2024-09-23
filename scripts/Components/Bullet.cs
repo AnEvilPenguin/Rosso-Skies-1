@@ -13,6 +13,7 @@ namespace RossoSkies1.scripts.Components
         private double _timer;
         private float _speed = 300;
         private float _lifetime = 1;
+        private float _initialScale = 0.05f;
         private Sprite2D _sprite = new Sprite2D();
         private CollisionShape2D _collisionShape2D = new CollisionShape2D();
 
@@ -33,7 +34,6 @@ namespace RossoSkies1.scripts.Components
 
             // Put behind other objects, but in front of background.
             // We probably need to revisit this in future.
-            ZIndex = 1;
             ZAsRelative = false;
 
             base._Ready();
@@ -79,9 +79,10 @@ namespace RossoSkies1.scripts.Components
             return this;
         }
 
-        public Bullet SetSpriteScale(Vector2 scale)
+        public Bullet SetScale(int multiplier)
         {
-            _sprite.Scale = scale;
+            float scale = _initialScale + (_initialScale * (multiplier * 0.5f));
+            Scale = new Vector2(scale, scale);
             return this;
         }
 

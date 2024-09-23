@@ -43,6 +43,21 @@ namespace RossoSkies1.scripts.Settings
             ControllerControl = new InputBinding { Type = InputType.JoypadButton, JoypadButton = JoyButton.A }
         };
 
+        public ControlGroup Up = new ControlGroup()
+        {
+            Name = "Fly Up",
+            KeyboardControl = new InputBinding { Type = InputType.Keyboard, Keyboard = Key.R },
+            ControllerControl = new InputBinding { Type = InputType.JoypadButton, JoypadButton = JoyButton.DpadUp }
+        };
+
+        public ControlGroup Down = new ControlGroup()
+        {
+            Name = "Fly Down",
+            KeyboardControl = new InputBinding { Type = InputType.Keyboard, Keyboard = Key.F },
+            ControllerControl = new InputBinding { Type = InputType.JoypadButton, JoypadButton = JoyButton.DpadDown }
+        };
+
+
         public Controls()
         {
             Name = "Controls";
@@ -63,6 +78,7 @@ namespace RossoSkies1.scripts.Settings
             return output;
         }
 
+        // TODO automate this?
         public List<ControlGroup> GetControls() =>
             new List<ControlGroup> {
                 Accelerate,
@@ -70,6 +86,8 @@ namespace RossoSkies1.scripts.Settings
                 Right,
                 Left,
                 Shoot,
+                Up,
+                Down,
             };
 
         public override List<Label> GetHeaders() => new List<Label> {

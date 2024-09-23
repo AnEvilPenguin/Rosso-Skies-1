@@ -5,6 +5,10 @@ using System.Linq;
 
 public partial class Player : CharacterBody2D
 {
+	// TODO layer to own component
+	[Signal]
+	public delegate void LayerChangedEventHandler(int layer);
+
 	[Export]
 	public float MinSpeed = 20f;
 	[Export]
@@ -16,21 +20,70 @@ public partial class Player : CharacterBody2D
 
 	public Health Health;
 
+    public Layer Layer;
+
 	private float _speed;
-	private Camera2D _camera;
+	private CameraZoom _zoom;
 
 	private List<BasicGun> _guns;
 
+	private Area2D _hitBox;
+
+	private AnimatedSprite2D _sprite;
+
     public override void _Ready()
-    {
-        _camera = GetNode<Camera2D>("%Camera2D");
+	{		
+		_zoom = GetNode<CameraZoom>("CameraZoom");
 
 		_guns = GetChildren()
 			.OfType<BasicGun>()
 			.ToList();
 
+		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		_sprite.Play("idle");
+
 		Health = GetNode<Health>("Health");
-    }
+		Layer = GetNode<Layer>("Layer");
+		
+		_hitBox = GetNode<Area2D>("HitBox");
+
+        Layer.LayerChanged += (int layer, int previousLayer) => {
+			var collision = getLayer(layer);
+			var mask = getMask(layer);
+
+            _guns.ForEach(gun => {
+				gun.Mask = new int[] { mask };
+            });
+
+			// TODO make this not terrible
+			// Probably put it into the layer or something
+			// FIXME Ideally we should see if we can work out why setting via a bitmask doesn't work as expected?
+
+			_zoom.SetLayer(layer, previousLayer);
+
+			SetScale(layer, previousLayer);
+
+			ZIndex = 3 + (layer * 10);
+
+			SetCollisionLayerValue(getLayer(previousLayer), false);
+            SetCollisionLayerValue(collision, true);
+
+			_hitBox.SetCollisionLayerValue(getLayer(previousLayer), false);
+			_hitBox.SetCollisionLayerValue(collision, true);
+
+            SetCollisionMaskValue(getMask(previousLayer), false);
+			SetCollisionMaskValue(mask, true);
+
+            _hitBox.SetCollisionMaskValue(getMask(previousLayer), false);
+            _hitBox.SetCollisionMaskValue(mask, true);
+        };
+	}
+
+	private int getLayer(int layer) =>
+		2 * layer + 3;
+
+	private int getMask(int layer) =>
+		2 * layer + 4;
 
     public override void _PhysicsProcess(double delta)
 	{
@@ -51,9 +104,17 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionPressed("Shoot Primary"))
 			_guns.ForEach(gun => gun.Shoot(direction, Rotation, _speed));
 
-		Zoom();
+		if (Input.IsActionJustPressed("Fly Up"))
+			Layer.RaiseLayer();
+		else if (Input.IsActionJustPressed("Fly Down"))
+			Layer.LowerLayer();
 
-		Velocity = direction * _speed;
+        // TODO consider some sort of takeoff automation.
+
+        var speedPercent = _speed / MaxSpeed * 100f;
+		_zoom.ZoomFromSpeedPercent(speedPercent);
+
+        Velocity = direction * _speed;
 
 		MoveAndSlide();
 	}
@@ -98,14 +159,19 @@ public partial class Player : CharacterBody2D
 		RotationDegrees += x * rotationFactor;
     }
 
-	private void Zoom()
-	{
-        var diff = ((MaxSpeed - _speed) / MaxSpeed) + 1.5f;
-        _camera.Zoom = new Vector2(diff, diff);
-    }
-
 	private void OnDestroyed()
 	{
 		GD.Print("Game Over");
 	}
+
+	private void SetScale(int layer, int previous)
+	{
+        var scale = Scale;
+        var diff = layer - previous;
+        var newScale = scale.X + (0.5f * diff);
+        Scale = new Vector2(newScale, newScale);
+
+		// FIXME scale doesn't seem to apply to bullets
+		_guns.ForEach(gun => gun.SetLayer(layer));
+    }
 }

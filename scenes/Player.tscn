@@ -1,29 +1,57 @@
-[gd_scene load_steps=7 format=3 uid="uid://c13i7nttddmjt"]
+[gd_scene load_steps=13 format=3 uid="uid://c13i7nttddmjt"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_4k3us"]
-[ext_resource type="Texture2D" uid="uid://ctr2eyp00qch3" path="res://assets/art/Basic_Plane.png" id="1_5h5ss"]
+[ext_resource type="Texture2D" uid="uid://bvc2at5jf7sb5" path="res://assets/art/planes/Player_Plane.png" id="2_g5efw"]
 [ext_resource type="PackedScene" uid="uid://crutsll5t0u2c" path="res://scenes/basic_gun.tscn" id="3_vb3vr"]
 [ext_resource type="PackedScene" uid="uid://b7e1hpayntdtq" path="res://scenes/components/health.tscn" id="4_5hvvy"]
+[ext_resource type="PackedScene" uid="uid://c5kuapcx8ft7x" path="res://scenes/components/layer.tscn" id="5_y2xkt"]
+[ext_resource type="Script" path="res://scripts/Components/CameraZoom.cs" id="6_cgqas"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_otfje"]
 radius = 9.0
 height = 26.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf6ym"]
+atlas = ExtResource("2_g5efw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfpf3"]
+atlas = ExtResource("2_g5efw")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmo3o"]
+atlas = ExtResource("2_g5efw")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khvb4"]
+atlas = ExtResource("2_g5efw")
+region = Rect2(96, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_6ryu7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_5h5ss")
+"texture": SubResource("AtlasTexture_gf6ym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfpf3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmo3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khvb4")
 }],
 "loop": true,
-"name": &"default",
-"speed": 5.0
+"name": &"idle",
+"speed": 60.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
-z_index = 2
+z_index = 3
 position = Vector2(19, 19)
-collision_mask = 3
+collision_layer = 4
+collision_mask = 8
 motion_mode = 1
 script = ExtResource("1_4k3us")
 
@@ -34,6 +62,9 @@ shape = SubResource("CapsuleShape2D_otfje")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_6ryu7")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.24212
 
 [node name="BasicGun" parent="." instance=ExtResource("3_vb3vr")]
 position = Vector2(11, 7)
@@ -44,7 +75,8 @@ position = Vector2(11, -7)
 scale = Vector2(0.5, 0.5)
 
 [node name="HitBox" type="Area2D" parent="."]
-collision_mask = 8
+collision_layer = 4
+collision_mask = 2
 
 [node name="HitBoxCollisionShape" type="CollisionShape2D" parent="HitBox"]
 rotation = 1.5708
@@ -52,5 +84,10 @@ shape = SubResource("CapsuleShape2D_otfje")
 
 [node name="Health" parent="." instance=ExtResource("4_5hvvy")]
 MaxHealth = 500
+
+[node name="Layer" parent="." instance=ExtResource("5_y2xkt")]
+
+[node name="CameraZoom" type="Node" parent="."]
+script = ExtResource("6_cgqas")
 
 [connection signal="Destroyed" from="Health" to="." method="OnDestroyed"]

@@ -3,7 +3,7 @@ using System;
 
 public partial class MainMenu : Control
 {
-	private MenuButton _playButton;
+    private MenuButton _playButton;
 	private MenuButton _upgradeButton;
 	private MenuButton _statsButton;
 	private MenuButton _settingsButton;

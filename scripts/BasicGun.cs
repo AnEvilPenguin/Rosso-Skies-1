@@ -13,14 +13,21 @@ public partial class BasicGun : Node2D
 	[Export]
 	public float Range = 400;
 	[Export]
-	public int[] Layer = new int [] { 3 };
+	public int[] Layer = new int [] { 1 };
 	[Export]
-	public int[] Mask = new int[] { 2 };
+	public int[] Mask = new int[] { 4 };
 
 	private double _timer;
+	private float _initialScale;
+	private int _currentLayer;
 
-    public override void _Ready() =>
+    public override void _Ready()
+	{
         ResetTimer();
+
+		_initialScale = Scale.X;
+    }
+        
 
     public override void _Process(double delta) =>
 		_timer -= delta;
@@ -30,7 +37,6 @@ public partial class BasicGun : Node2D
 		if (_timer > 0)
 			return;
 
-
 		// TODO consider the builder pattern
 		// Should help with upgrades?
 		var bullet = new Bullet()
@@ -38,14 +44,15 @@ public partial class BasicGun : Node2D
 			Name = GetParent().Name + $"-Bullet-{GD.Randi()}",
 			Position = GetNode<Marker2D>("%Marker2D").GlobalPosition,
 			Rotation = rotation,
+			ZIndex = 2 + (_currentLayer * 10),
 		};
 
-		bullet.SetDirection(direction) // Consider having bullets converge slightly?
+        bullet.SetDirection(direction) // Consider having bullets converge slightly?
 		    .SetSpeed(speed + MuzzleVelocity)
-			.SetLifetime(Range / MuzzleVelocity)
+			.SetLifetime((Range / MuzzleVelocity) * ((_currentLayer + 1) * 0.5f))
 			.SetTexture(BulletTexture)
 			.SetSpriteRotationDegrees(90)
-			.SetSpriteScale(new Vector2(0.05f, 0.05f))
+			.SetScale(_currentLayer)
 			.SetCollisionLayers(Layer)
 			.SetCollisionMasks(Mask);
 
@@ -53,6 +60,9 @@ public partial class BasicGun : Node2D
 
 		ResetTimer();
 	}
+
+	public void SetLayer(int layer) =>
+        _currentLayer = layer;
 
 	private void ResetTimer() =>
 		_timer = 1 / RateOfFire;
